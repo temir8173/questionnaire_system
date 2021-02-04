@@ -3,17 +3,16 @@
 namespace app\modules\admin\controllers;
 
 use Yii;
-use app\models\Program;
-use app\models\School;
-use app\models\ProgramSearch;
+use app\models\AnketaCategory;
+use app\models\AnketaCategorySearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * ProgramController implements the CRUD actions for Program model.
+ * AnketaCategoryController implements the CRUD actions for AnketaCategory model.
  */
-class ProgramController extends Controller
+class AnketaCategoryController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -31,25 +30,22 @@ class ProgramController extends Controller
     }
 
     /**
-     * Lists all Program models.
+     * Lists all AnketaCategory models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new ProgramSearch();
+        $searchModel = new AnketaCategorySearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $schools = [];
-        $schools = School::find()->select(['name_rus', 'id'])->indexBy('id')->column();
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'schools' => $schools
         ]);
     }
 
     /**
-     * Displays a single Program model.
+     * Displays a single AnketaCategory model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -62,28 +58,27 @@ class ProgramController extends Controller
     }
 
     /**
-     * Creates a new Program model.
+     * Creates a new AnketaCategory model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Program();
-        $schools = [];
-        $schools = School::find()->select(['name_rus', 'id'])->indexBy('id')->column();
+        $model = new AnketaCategory();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
+            if(isset(Yii::$app->request->post()['close'])) {
+                return $this->redirect(['index']);
+            }
         }
 
         return $this->render('create', [
             'model' => $model,
-            'schools' => $schools
         ]);
     }
 
     /**
-     * Updates an existing Program model.
+     * Updates an existing AnketaCategory model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -92,21 +87,20 @@ class ProgramController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $schools = [];
-        $schools = School::find()->select(['name_rus', 'id'])->indexBy('id')->column();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
+            if(isset(Yii::$app->request->post()['close'])) {
+                return $this->redirect(['index']);
+            }
         }
 
         return $this->render('update', [
             'model' => $model,
-            'schools' => $schools
         ]);
     }
 
     /**
-     * Deletes an existing Program model.
+     * Deletes an existing AnketaCategory model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -120,15 +114,15 @@ class ProgramController extends Controller
     }
 
     /**
-     * Finds the Program model based on its primary key value.
+     * Finds the AnketaCategory model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Program the loaded model
+     * @return AnketaCategory the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Program::findOne($id)) !== null) {
+        if (($model = AnketaCategory::findOne($id)) !== null) {
             return $model;
         }
 

@@ -5,7 +5,7 @@ $db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'basic',
-    'name' => 'Homework',
+    'name' => 'Сауалнама.wkau',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'aliases' => [
@@ -49,6 +49,8 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'admin/header-fields/<anketa_id:\d+>' => 'admin/header-fields/index',
+                'admin/question/<anketa_id:\d+>' => 'admin/question/index',
             ],
         ],
         'i18n' => [

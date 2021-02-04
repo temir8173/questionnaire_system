@@ -5,20 +5,20 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "custom_fields".
+ * This is the model class for table "anketa_category".
  *
  * @property int $id
  * @property string $name_rus
  * @property string $name_kaz
  */
-class CustomFields extends \yii\db\ActiveRecord
+class AnketaCategory extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'custom_fields';
+        return 'anketa_category';
     }
 
     /**

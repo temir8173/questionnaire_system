@@ -26,11 +26,22 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'name_kaz',
-            'name_rus',
+            [
+                'attribute' => 'name_rus',
+                'headerOptions' => ['style' => 'width: 45%'],
+            ],
+            [
+                'attribute' => 'name_kaz',
+                'headerOptions' => ['style' => 'width: 45%'],
+            ],
 
-            ['class' => 'yii\grid\ActionColumn'],
+            
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'header' => 'Действия', 
+                'headerOptions' => ['style' => 'width: 5%'],
+                'template' => '{view} {update} {delete}{link}',
+            ],
         ],
     ]); ?>
 

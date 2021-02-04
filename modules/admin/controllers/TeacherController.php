@@ -73,7 +73,7 @@ class TeacherController extends Controller
         $schools = School::find()->select(['name_rus', 'id'])->indexBy('id')->column();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('create', [
@@ -96,7 +96,7 @@ class TeacherController extends Controller
         $schools = School::find()->select(['name_rus', 'id'])->indexBy('id')->column();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('update', [

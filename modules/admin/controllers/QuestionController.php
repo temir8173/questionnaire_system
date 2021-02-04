@@ -4,11 +4,13 @@ namespace app\modules\admin\controllers;
 
 use Yii;
 use app\models\Question;
+use app\models\QCategory;
 use app\models\Options;
 use app\models\QuestionSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\Url;
 
 /**
  * QuestionController implements the CRUD actions for Question model.
@@ -34,14 +36,26 @@ class QuestionController extends Controller
      * Lists all Question models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($anketa_id = 0)
     {
         $searchModel = new QuestionSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search([
+            $searchModel->formName()=>[
+                'anketa_id'=>$anketa_id, 
+                'name_rus' => Yii::$app->request->queryParams[$searchModel->formName()]['name_rus'],
+                'name_kaz' => Yii::$app->request->queryParams[$searchModel->formName()]['name_kaz'],
+                'q_category_id' => Yii::$app->request->queryParams[$searchModel->formName()]['q_category_id'],
+            ],
+            'sort' => Yii::$app->request->queryParams['sort']
+        ]);
+        $qcategories = [];
+        $qcategories = QCategory::find()->select(['name_rus', 'id'])->indexBy('id')->column();
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'qcategories' => $qcategories,
+            'anketa_id' => $anketa_id,
         ]);
     }
 
@@ -63,19 +77,23 @@ class QuestionController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($anketa_id = 0)
     {
         $model = new Question();
         $options = [];
         $options = Options::find()->select(['name', 'id'])->indexBy('id')->column();
+        $qcategories = [];
+        $qcategories = QCategory::find()->select(['name_rus', 'id'])->indexBy('id')->column();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(Url::to(['index', 'anketa_id' => $model->anketa_id]));
         }
 
         return $this->render('create', [
             'model' => $model,
-            'options' => $options
+            'options' => $options,
+            'qcategories' => $qcategories,
+            'anketa_id' => $anketa_id,
         ]);
     }
 
@@ -90,14 +108,19 @@ class QuestionController extends Controller
     {
         $model = $this->findModel($id);
         $options = Options::find()->select(['name', 'id'])->indexBy('id')->column();
+        $qcategories = [];
+        $qcategories = QCategory::find()->select(['name_rus', 'id'])->indexBy('id')->column();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            if(isset(Yii::$app->request->post()['close'])) {
+                return $this->redirect(Url::to(['index', 'anketa_id' => $model->anketa_id]));
+            }
         }
 
         return $this->render('update', [
             'model' => $model,
-            'options' => $options
+            'options' => $options,
+            'qcategories' => $qcategories
         ]);
     }
 
@@ -110,9 +133,11 @@ class QuestionController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $anketa_id = $model->anketa_id;
+        $model->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(Url::to(['index', 'anketa_id' => $anketa_id]));
     }
 
     /**

@@ -39,8 +39,8 @@ class QCategory extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name_kaz' => 'Name Kaz',
-            'name_rus' => 'Name Rus',
+            'name_rus' => 'Название на русском',
+            'name_kaz' => 'Қазақша атауы',
         ];
     }
 }

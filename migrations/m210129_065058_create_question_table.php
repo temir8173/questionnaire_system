@@ -18,7 +18,7 @@ class m210129_065058_create_question_table extends Migration
             'name_rus' => $this->string()->notNull(),
             'anketa_id' => $this->integer()->notNull(),
             'q_category_id' => $this->integer(),
-            'option_id' => $this->integer(),
+            'option_id' => $this->integer()->notNull(),
         ]);
     }
 

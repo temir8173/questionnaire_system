@@ -4,16 +4,16 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Anketa */
+/* @var $model app\models\AnketaCategory */
 
 $this->title = $model->name_rus;
-$this->params['breadcrumbs'][] = ['label' => 'Анкеты', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Категории анкет', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="anketa-view">
+<div class="anketa-category-view">
 
-    <h1 style="font-size: 24px; margin: 30px 0;"><?= Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
         <?= Html::a('Изменить', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
@@ -30,8 +30,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'name_kaz',
             'name_rus',
+            'name_kaz',
         ],
     ]) ?>
 

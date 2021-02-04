@@ -30,14 +30,20 @@ class Question extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name_kaz', 'name_rus', 'anketa_id'], 'required', 'message' => 'Заполните обязательное поле {attribute}'],
+            [['name_kaz', 'name_rus', 'anketa_id', 'option_id'], 'required', 'message' => 'Заполните обязательное поле {attribute}'],
             [['anketa_id', 'q_category_id', 'option_id'], 'integer'],
             [['name_kaz', 'name_rus'], 'string', 'max' => 255],
         ];
     }
+
     public function getOptions()
     {
         return $this->hasOne(Options::className(), ['id' => 'option_id']);
+    }
+
+    public function getCategory()
+    {
+        return $this->hasOne(QCategory::className(), ['id' => 'q_category_id']);
     }
 
     /**

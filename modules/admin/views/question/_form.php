@@ -16,9 +16,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name_rus')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'anketa_id')->textInput() ?>
+    <?= $form->field($model, 'anketa_id')->hiddenInput(['value' => $anketa_id])->label(false) ?>
 
-    <?= $form->field($model, 'q_category_id')->textInput() ?>
+    <?= $form->field($model, 'q_category_id')->dropdownList(
+        $qcategories, ['prompt'=>'Выберите значение']
+    ) ?>
 
     <?= $form->field($model, 'option_id')->dropdownList(
         $options, ['prompt'=>'Выберите значение']
@@ -28,6 +30,7 @@ use yii\widgets\ActiveForm;
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
+        <?= (Yii::$app->controller->action->id != 'create') ? Html::submitInput('Сохранить и выйти', ['name' => 'close', 'class' => 'btn btn-primary']) : '' ?>
     </div>
 
     <?php ActiveForm::end(); ?>

@@ -78,6 +78,9 @@ AppAsset::register($this);
                 <li><?= Html::a('Преподаватели', ['teacher/index'], ['class' => '']) ?></li>
                 <li><?= Html::a('Учебные программы', ['program/index'], ['class' => '']) ?></li>
                 <li><?= Html::a('Группы', ['group/index'], ['class' => '']) ?></li>
+                <li><?= Html::a('Анкеты', ['anketa/index'], ['class' => '']) ?></li>
+                <li><?= Html::a('Категории анкет', ['anketa-category/index'], ['class' => '']) ?></li>
+                <li><?= Html::a('Категории вопросов', ['qcategory/index'], ['class' => '']) ?></li>
             </ul>
         </div>
         <div class="col-md-10">

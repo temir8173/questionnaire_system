@@ -27,7 +27,8 @@ class Anketa extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name_kaz', 'name_rus'], 'required', 'message' => 'Заполните обязательное поле {attribute}'],
+            [['name_kaz', 'name_rus', 'category_id'], 'required', 'message' => 'Заполните обязательное поле {attribute}'],
+            [['category_id'], 'integer'],
             [['name_kaz', 'name_rus'], 'string', 'max' => 255],
         ];
     }
@@ -46,6 +47,7 @@ class Anketa extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name_rus' => 'Название на русском',
             'name_kaz' => 'Қазақша атауы',
+            'category_id' => 'Категория',
         ];
     }
 }

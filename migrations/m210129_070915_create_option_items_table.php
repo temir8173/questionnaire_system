@@ -17,7 +17,7 @@ class m210129_070915_create_option_items_table extends Migration
             'name_kaz' => $this->string()->notNull(),
             'name_rus' => $this->string()->notNull(),
             'is_own_answer' => $this->integer(),
-            'option_id' => $this->integer(),
+            ' ' => $this->integer(),
         ]);
     }
 

@@ -4,13 +4,13 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\QCategorySearch */
+/* @var $searchModel app\models\AnketaCategorySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Категории вопросов';
+$this->title = 'Категории анкет';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="qcategory-index">
+<div class="anketa-category-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -27,21 +27,15 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             [
-                'attribute' => 'name_kaz',
-                'headerOptions' => ['style' => 'width: 45%'],
-            ],
-            [
                 'attribute' => 'name_rus',
                 'headerOptions' => ['style' => 'width: 45%'],
             ],
-
-            
             [
-                'class' => 'yii\grid\ActionColumn',
-                'header'=>'Действия', 
-                'headerOptions' => ['style' => 'width: 3%'],
-                'template' => '{view} {update} {delete}{link}',
+                'attribute' => 'name_kaz',
+                'headerOptions' => ['style' => 'width: 45%'],
             ],
+
+            ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
 

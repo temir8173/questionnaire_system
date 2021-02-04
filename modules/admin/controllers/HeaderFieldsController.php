@@ -3,17 +3,17 @@
 namespace app\modules\admin\controllers;
 
 use Yii;
-use app\models\Program;
-use app\models\School;
-use app\models\ProgramSearch;
+use app\models\HeaderFields;
+use app\models\HeaderFieldsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\Url;
 
 /**
- * ProgramController implements the CRUD actions for Program model.
+ * HeaderFieldsController implements the CRUD actions for HeaderFields model.
  */
-class ProgramController extends Controller
+class HeaderFieldsController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -31,30 +31,37 @@ class ProgramController extends Controller
     }
 
     /**
-     * Lists all Program models.
+     * Lists all HeaderFields models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($anketa_id = 0)
     {
-        $searchModel = new ProgramSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $schools = [];
-        $schools = School::find()->select(['name_rus', 'id'])->indexBy('id')->column();
+        $searchModel = new HeaderFieldsSearch();
+
+        $dataProvider = $searchModel->search([
+            $searchModel->formName()=>[
+                'anketa_id'=>$anketa_id, 
+                'type' => 'custom', 
+                'name_rus' => Yii::$app->request->queryParams[$searchModel->formName()]['name_rus'],
+                'name_kaz' => Yii::$app->request->queryParams[$searchModel->formName()]['name_kaz'],
+            ],
+            'sort' => Yii::$app->request->queryParams['sort']
+        ]);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'schools' => $schools
+            'anketa_id' => $anketa_id
         ]);
     }
 
     /**
-     * Displays a single Program model.
+     * Displays a single HeaderFields model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
+    public function actionView($id, $anketa_id = 0)
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
@@ -62,28 +69,28 @@ class ProgramController extends Controller
     }
 
     /**
-     * Creates a new Program model.
+     * Creates a new HeaderFields model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($anketa_id = 0)
     {
-        $model = new Program();
-        $schools = [];
-        $schools = School::find()->select(['name_rus', 'id'])->indexBy('id')->column();
+        $model = new HeaderFields();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
+            if(isset(Yii::$app->request->post()['close'])) {
+                return $this->redirect(Url::to(['index', 'anketa_id' => $model->anketa_id]));
+            }
         }
 
         return $this->render('create', [
             'model' => $model,
-            'schools' => $schools
+            'anketa_id' => $anketa_id
         ]);
     }
 
     /**
-     * Updates an existing Program model.
+     * Updates an existing HeaderFields model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -92,21 +99,20 @@ class ProgramController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $schools = [];
-        $schools = School::find()->select(['name_rus', 'id'])->indexBy('id')->column();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
+            if(isset(Yii::$app->request->post()['close'])) {
+                return $this->redirect(Url::to(['index', 'anketa_id' => $model->anketa_id]));
+            }
         }
 
         return $this->render('update', [
             'model' => $model,
-            'schools' => $schools
         ]);
     }
 
     /**
-     * Deletes an existing Program model.
+     * Deletes an existing HeaderFields model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -114,21 +120,23 @@ class ProgramController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $anketa_id = $model->anketa_id;
+        $model->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(Url::to(['index', 'anketa_id' => $anketa_id]));
     }
 
     /**
-     * Finds the Program model based on its primary key value.
+     * Finds the HeaderFields model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Program the loaded model
+     * @return HeaderFields the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Program::findOne($id)) !== null) {
+        if (($model = HeaderFields::findOne($id)) !== null) {
             return $model;
         }
 

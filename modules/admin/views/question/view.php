@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
@@ -8,21 +9,21 @@ use yii\widgets\DetailView;
 
 if ( !$without_breadcrumbs ) {
     $this->title = $model->id;
-    $this->params['breadcrumbs'][] = ['label' => 'Questions', 'url' => ['index']];
+    $this->params['breadcrumbs'][] = ['label' => 'Вопросы анкеты', 'url' => Url::to(['index', 'anketa_id' => $model->anketa_id])];
     $this->params['breadcrumbs'][] = $this->title;
 }
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="question-view">
 
-    <h1><?= Html::encode($model->id) ?></h1>
+    <h1><?= Html::encode($model->name_rus) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['question/update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['question/delete', 'id' => $model->id], [
+        <?= Html::a('Изменить', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Вы уверены что хотите удалить?',
                 'method' => 'post',
             ],
         ]) ?>
@@ -31,10 +32,23 @@ if ( !$without_breadcrumbs ) {
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
+            'id',
             'name_kaz',
             'name_rus',
-            'q_category_id',
-            'option_id',
+            [
+                'attribute'=>'q_category_id',
+                'format' => 'raw',
+                'value' => function($data){
+                    return $data->category->name_rus;
+                },
+            ],
+            [
+                'attribute'=>'option_id',
+                'format' => 'raw',
+                'value' => function($data){
+                    return $data->options->name;
+                },
+            ],
         ],
     ]) ?>
 
