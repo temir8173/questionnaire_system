@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
@@ -14,8 +15,10 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
+    <?= (Yii::$app->controller->action->id != 'create') ? Html::a('Элементы', Url::to(['option-items/index', 'option_id' => $model->id]), ['class' => 'btn btn-info', 'target'=>'_blank', 'style' => 'margin: 5px 5px 15px 0;']) : '' ?>
+
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

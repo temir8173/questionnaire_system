@@ -30,9 +30,10 @@ class Options extends \yii\db\ActiveRecord
             [['name'], 'string', 'max' => 255],
         ];
     }
+    
     public function getOptionitems()
     {
-        return $this->hasOne(OptionItems::className(), ['option_id' => 'id']);
+        return $this->hasMany(OptionItems::className(), ['option_id' => 'id']);
     }
 
     /**
@@ -42,7 +43,7 @@ class Options extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
+            'name' => 'Название',
         ];
     }
 }

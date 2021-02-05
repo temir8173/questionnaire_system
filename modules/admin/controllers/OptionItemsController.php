@@ -8,6 +8,8 @@ use app\models\OptionItemsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
+use yii\helpers\Url;
 
 /**
  * OptionItemsController implements the CRUD actions for OptionItems model.
@@ -44,14 +46,22 @@ class OptionItemsController extends Controller
      * Lists all OptionItems models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($option_id = 0)
     {
         $searchModel = new OptionItemsSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search([
+            $searchModel->formName()=>[
+                'option_id'=>$option_id,
+                'name_rus' => Yii::$app->request->queryParams[$searchModel->formName()]['name_rus'],
+                'name_kaz' => Yii::$app->request->queryParams[$searchModel->formName()]['name_kaz'],
+            ],
+            'sort' => Yii::$app->request->queryParams['sort']
+        ]);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'option_id' => $option_id,
         ]);
     }
 
@@ -73,16 +83,19 @@ class OptionItemsController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($option_id = 0)
     {
         $model = new OptionItems();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            if(isset(Yii::$app->request->post()['close'])) {
+                return $this->redirect(Url::to(['index', 'option_id' => $model->option_id]));
+            }
         }
 
         return $this->render('create', [
             'model' => $model,
+            'option_id' => $option_id,
         ]);
     }
 
@@ -98,7 +111,9 @@ class OptionItemsController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            if(isset(Yii::$app->request->post()['close'])) {
+                return $this->redirect(Url::to(['index', 'option_id' => $model->option_id]));
+            }
         }
 
         return $this->render('update', [
@@ -115,9 +130,11 @@ class OptionItemsController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $option_id = $model->option_id;
+        $model->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['index', 'option_id' => $option_id]);
     }
 
     /**

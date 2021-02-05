@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\OptionsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Options';
+$this->title = 'Варианты ответов';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="options-index">
@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Options', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Создать', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -26,10 +26,17 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'name',
-
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'attribute' => 'name',
+                'headerOptions' => ['style' => 'width: 90%'],
+            ],
+            
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'header' => 'Действия', 
+                'headerOptions' => ['style' => 'width: 5%'],
+                'template' => '{view} {update} {delete}{link}',
+            ],
         ],
     ]); ?>
 

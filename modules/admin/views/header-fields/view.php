@@ -1,15 +1,14 @@
 <?php
 
 use yii\helpers\Html;
-use yii\helpers\Url;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\HeaderFields */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'К анекете', 'url' => Url::to(['anketa/update', 'id' => $model->anketa_id])];
-$this->params['breadcrumbs'][] = ['label' => 'Вопросы о респонденте', 'url' => Url::to(['index', 'anketa_id' => $model->anketa_id])];
+$this->params['breadcrumbs'][] = ['label' => 'К анкете', 'url' => ['anketa/update', 'id' => $model->anketa_id]];
+$this->params['breadcrumbs'][] = ['label' => 'Вопросы о респонденте', 'url' => ['index', 'anketa_id' => $model->anketa_id]];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>

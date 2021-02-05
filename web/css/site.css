@@ -123,3 +123,18 @@ a.desc:after {
 .admin-menu li {
     list-style: none;
 }
+
+.admin-menu .dropdown-menu {
+    position: relative;
+    width: 100%;
+    border: none;
+    box-shadow: none;
+    float: unset;
+    padding: 0;
+    margin: 0;
+}
+
+.admin-menu .dropdown-menu > li > a {
+    padding: 10px 25px;
+}
+

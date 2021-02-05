@@ -34,6 +34,11 @@ class OptionItems extends \yii\db\ActiveRecord
             [['name_kaz', 'name_rus'], 'string', 'max' => 255],
         ];
     }
+    
+    public function getOption()
+    {
+        return $this->hasOne(Options::className(), ['id' => 'option_id']);
+    }
 
     /**
      * {@inheritdoc}
@@ -42,9 +47,9 @@ class OptionItems extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name_kaz' => 'Name Kaz',
-            'name_rus' => 'Name Rus',
-            'is_own_answer' => 'Is Own Answer',
+            'name_rus' => 'Название на русском',
+            'name_kaz' => 'Қазақша атауы',
+            'is_own_answer' => 'Свой ответ респондента',
             'option_id' => 'Option ID',
         ];
     }

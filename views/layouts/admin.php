@@ -61,26 +61,26 @@ AppAsset::register($this);
         <?= Alert::widget() ?>
     </div>
     <div class="container" style="padding-top: 0; width: 100%"> 
+        
         <div class="col-md-2">
-            <ul class="admin-menu nav load">
-                <li class="dropdown">
-                        <a href="#" class="dropdown-toggle event"><i class="icon-briefcase"></i> Компании<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="https://framedream.local/admin/partners/default/index">Все компании</a></li>
-                            <li><a href="https://framedream.local/admin/partners/categories/index">Категории</a></li>
-                            <li><a href="https://framedream.local/admin/partners/reviews/index" data-count="8">Отзывы</a></li>
-                            <li><a href="https://framedream.local/admin/partners/leads/index" data-count="0">Заявки</a></li>
-                        </ul>
-                    </li>
-                <li><?= Html::a('Институты', ['institut/index'], ['class' => '']) ?></li>
-                <li><?= Html::a('Высшие школы', ['school/index'], ['class' => '']) ?></li>
-                <li><?= Html::a('Дисциплины', ['subject/index'], ['class' => '']) ?></li>
-                <li><?= Html::a('Преподаватели', ['teacher/index'], ['class' => '']) ?></li>
-                <li><?= Html::a('Учебные программы', ['program/index'], ['class' => '']) ?></li>
-                <li><?= Html::a('Группы', ['group/index'], ['class' => '']) ?></li>
+            
+            <ul class="admin-menu nav">
+                <li class="dropdown ">
+                    <a href="#" class="dropdown-toggle event" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="icon-briefcase"></i> Университет<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><?= Html::a('Институты', ['institut/index'], ['class' => '']) ?></li>
+                        <li><?= Html::a('Высшие школы', ['school/index'], ['class' => '']) ?></li>
+                        <li><?= Html::a('Дисциплины', ['subject/index'], ['class' => '']) ?></li>
+                        <li><?= Html::a('Преподаватели', ['teacher/index'], ['class' => '']) ?></li>
+                        <li><?= Html::a('Учебные программы', ['program/index'], ['class' => '']) ?></li>
+                        <li><?= Html::a('Группы', ['group/index'], ['class' => '']) ?></li>
+                    </ul>
+                </li>
+                
                 <li><?= Html::a('Анкеты', ['anketa/index'], ['class' => '']) ?></li>
                 <li><?= Html::a('Категории анкет', ['anketa-category/index'], ['class' => '']) ?></li>
                 <li><?= Html::a('Категории вопросов', ['qcategory/index'], ['class' => '']) ?></li>
+                <li><?= Html::a('Варианты ответов', ['options/index'], ['class' => '']) ?></li>
             </ul>
         </div>
         <div class="col-md-10">

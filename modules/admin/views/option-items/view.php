@@ -6,8 +6,9 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\OptionItems */
 
-$this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Option Items', 'url' => ['index']];
+$this->title = $model->name_rus;
+$this->params['breadcrumbs'][] = ['label' => 'К варианту ответа', 'url' => ['options/update', 'id' => $model->option_id]];
+$this->params['breadcrumbs'][] = ['label' => 'Элементы', 'url' => ['index', 'option_id' => $model->option_id]];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -16,11 +17,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::a('Изменить', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Удалить', ['delete', 'id' => $model->id, 'option_id' => $model->option_id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Вы уверены что хотите удалить?',
                 'method' => 'post',
             ],
         ]) ?>
@@ -32,8 +33,18 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'name_kaz',
             'name_rus',
-            'is_own_answer',
-            'option_id',
+            [
+                'attribute' => 'is_own_answer',
+                'value' => function($data){
+                    return ($data->is_own_answer == 1) ? 'да' : 'нет';
+                },
+            ],
+            [
+                'attribute' => 'option_id',
+                'value' => function($data){
+                    return $data->option->name;
+                },
+            ],
         ],
     ]) ?>
 

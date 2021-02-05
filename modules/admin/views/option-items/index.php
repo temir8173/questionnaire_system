@@ -1,13 +1,15 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\OptionItemsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Option Items';
+$this->title = 'Элементы';
+$this->params['breadcrumbs'][] = ['label' => 'К варианту ответа', 'url' => ['options/update', 'id' => $option_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="option-items-index">
@@ -15,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Option Items', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Создать', Url::to(['create', 'option_id' => $option_id]), ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -24,15 +26,42 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            [
+                'class' => 'yii\grid\SerialColumn',
+                'headerOptions' => ['style' => 'width: 3%'],
+            ],
 
-            'id',
-            'name_kaz',
-            'name_rus',
-            'is_own_answer',
-            'option_id',
+            [
+                'attribute' => 'name_kaz',
+                'headerOptions' => ['style' => 'width: 30%'],
+            ],
+            [
+                'attribute' => 'name_rus',
+                'headerOptions' => ['style' => 'width: 30%'],
+            ],
+            [
+                'attribute' => 'is_own_answer',
+                'headerOptions' => ['style' => 'width: 5%'],
+                'value' => function($data){
+                    return ($data->is_own_answer == 1) ? 'да' : 'нет';
+                },
+                'filter' => false
+            ],
+            [
+                'attribute' => 'option_id',
+                'headerOptions' => ['style' => 'width: 25%'],
+                'value' => function($data){
+                    return $data->option->name;
+                },
+                'filter' => false
+            ],
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'header' => 'Действия', 
+                'headerOptions' => ['style' => 'width: 5%'],
+                'template' => '{view} {update} {delete}{link}',
+            ],
         ],
     ]); ?>
 

@@ -16,12 +16,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name_rus')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'is_own_answer')->textInput() ?>
+    <?= $form->field($model, 'is_own_answer')->dropdownList(
+        [ 1 => 'Да', 0 => 'Нет'], ['prompt'=>'Выберите значение']
+    ) ?>
 
-    <?= $form->field($model, 'option_id')->textInput() ?>
+    <?= $form->field($model, 'option_id')->hiddenInput(['value' => $option_id])->label(false) ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= (Yii::$app->controller->action->id != 'create') ? Html::submitButton('Сохранить', ['class' => 'btn btn-success']) : '' ?>
+        <?= Html::submitInput('Сохранить и выйти', ['name' => 'close', 'class' => 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

@@ -9,7 +9,7 @@ use yii\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Вопросы о респонденте';
-$this->params['breadcrumbs'][] = ['label' => 'К анкете', 'url' => Url::to(['anketa/update', 'id' => $anketa_id])];
+$this->params['breadcrumbs'][] = ['label' => 'К анкете', 'url' => ['anketa/update', 'id' => $anketa_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="header-fields-index">
