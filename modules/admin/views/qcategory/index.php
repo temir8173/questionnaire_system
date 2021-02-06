@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Создать', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Создать', ['create', 'anketa_id' => $anketa_id], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -28,11 +28,19 @@ $this->params['breadcrumbs'][] = $this->title;
 
             [
                 'attribute' => 'name_kaz',
-                'headerOptions' => ['style' => 'width: 45%'],
+                'headerOptions' => ['style' => 'width: 30%'],
             ],
             [
                 'attribute' => 'name_rus',
-                'headerOptions' => ['style' => 'width: 45%'],
+                'headerOptions' => ['style' => 'width: 30%'],
+            ],
+            [
+                'attribute' => 'anketa_id',
+                'headerOptions' => ['style' => 'width: 30%'],
+                'value' => function($data){
+                    return $data->anketa->name_rus;
+                },
+                'filter' => false
             ],
 
             

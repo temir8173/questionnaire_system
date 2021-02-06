@@ -17,7 +17,7 @@ class OptionsSearch extends Options
     public function rules()
     {
         return [
-            [['id'], 'integer'],
+            [['id', 'anketa_id', 'is_multiple'], 'integer'],
             [['name'], 'safe'],
         ];
     }
@@ -59,6 +59,8 @@ class OptionsSearch extends Options
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'anketa_id' => $this->anketa_id,
+            'is_multiple' => $this->is_multiple,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name]);

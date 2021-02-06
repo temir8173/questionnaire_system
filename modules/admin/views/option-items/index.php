@@ -16,9 +16,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Создать', Url::to(['create', 'option_id' => $option_id]), ['class' => 'btn btn-success']) ?>
-    </p>
+    <?= $this->render('_form', [
+        'model' => $model,
+        'option_id' => $option_id,
+        'action' => 'create',
+    ]) ?>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 

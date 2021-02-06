@@ -3,13 +3,14 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\GridView;
+use yii\helpers\StringHelper;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\QuestionSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Вопросы анкеты';
-$this->params['breadcrumbs'][] = ['label' => 'К анкете', 'url' => Url::to(['anketa/update', 'id' => $anketa_id])];
+$this->params['breadcrumbs'][] = ['label' => 'К анкете', 'url' => ['anketa/update', 'id' => $anketa_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="question-index">
@@ -17,7 +18,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Создать', Url::to(['create', 'anketa_id' => $anketa_id]), ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Создать', ['create', 'anketa_id' => $anketa_id], ['class' => 'btn btn-success']) ?>
+
+        <?= Html::a('Категории вопросов', ['qcategory/index', 'anketa_id' => $anketa_id], ['class' => 'btn btn-info', 'target' => '_blank']) ?>
+
+        <?= Html::a('Варианты ответов', ['options/index', 'anketa_id' => $anketa_id], ['class' => 'btn btn-info', 'target' => '_blank']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -41,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'q_category_id',
                 'headerOptions' => ['style' => 'width: 25%'],
                 'value' => function($data){
-                    return $data->category->name_rus;
+                    return ($data->category) ? StringHelper::truncate($data->category->name_rus, 75) : 'Общие';
                 },
                 'filter' => $qcategories
             ],

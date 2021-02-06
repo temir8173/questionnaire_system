@@ -16,6 +16,7 @@ class m210129_065503_create_q_category_table extends Migration
             'id' => $this->primaryKey(),
             'name_kaz' => $this->string()->notNull(),
             'name_rus' => $this->string()->notNull(),
+            'anketa_id' => $this->integer()->notNull(),
         ]);
     }
 

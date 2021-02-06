@@ -15,6 +15,7 @@ class m210129_070855_create_options_table extends Migration
         $this->createTable('{{%options}}', [
             'id' => $this->primaryKey(),
             'name' => $this->string()->notNull(),
+            'anketa_id' => $this->integer(),
             'is_multiple' => $this->integer(),
         ]);
     }

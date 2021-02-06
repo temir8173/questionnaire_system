@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $model app\models\QCategory */
 
 $this->title = 'Создать';
-$this->params['breadcrumbs'][] = ['label' => 'Категории вопросов', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Категории вопросов', 'url' => ['index', 'anketa_id' => $anketa_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="qcategory-create">
@@ -15,6 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
+        'anketa_id' => $anketa_id,
     ]) ?>
 
 </div>

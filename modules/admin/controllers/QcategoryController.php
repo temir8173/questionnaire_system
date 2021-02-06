@@ -4,6 +4,7 @@ namespace app\modules\admin\controllers;
 
 use Yii;
 use app\models\QCategory;
+use app\models\Anketa;
 use app\models\QCategorySearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -33,14 +34,22 @@ class QcategoryController extends Controller
      * Lists all QCategory models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($anketa_id = 0)
     {
         $searchModel = new QCategorySearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search([
+            $searchModel->formName()=>[
+                'anketa_id'=>$anketa_id,
+                'name_rus' => Yii::$app->request->queryParams[$searchModel->formName()]['name_rus'],
+                'name_kaz' => Yii::$app->request->queryParams[$searchModel->formName()]['name_kaz'],
+            ],
+            'sort' => Yii::$app->request->queryParams['sort']
+        ]);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'anketa_id' => $anketa_id,
         ]);
     }
 
@@ -62,16 +71,17 @@ class QcategoryController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($anketa_id = 0)
     {
         $model = new QCategory();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index', 'anketa_id' => $anketa_id]);
         }
 
         return $this->render('create', [
             'model' => $model,
+            'anketa_id' => $anketa_id,
         ]);
     }
 
@@ -87,11 +97,11 @@ class QcategoryController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index', 'anketa_id' => $model->anketa_id]);
         }
 
         return $this->render('update', [
-            'model' => $model,
+            'model' => $model
         ]);
     }
 
@@ -104,9 +114,11 @@ class QcategoryController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $anketa_id = $model->anketa_id;
+        $model->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['index', 'anketa_id' => $anketa_id]);
     }
 
     /**

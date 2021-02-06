@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Создать', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Создать', ['create', 'anketa_id' => $anketa_id], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -28,14 +28,29 @@ $this->params['breadcrumbs'][] = $this->title;
 
             [
                 'attribute' => 'name',
-                'headerOptions' => ['style' => 'width: 90%'],
+                'headerOptions' => ['style' => 'width: 40%'],
+            ],
+            [
+                'attribute' => 'is_multiple',
+                'headerOptions' => ['style' => 'width: 5%'],
+                'value' => function($data){
+                    return ($data->is_multiple == 1) ? 'Да' : 'Нет';
+                }
+            ],
+            [
+                'attribute' => 'anketa_id',
+                'headerOptions' => ['style' => 'width: 40%'],
+                'value' => function($data){
+                    return ($data->anketa) ? $data->anketa->name_rus : 'Общие';
+                },
+                'filter' => false
             ],
             
             [
                 'class' => 'yii\grid\ActionColumn',
                 'header' => 'Действия', 
                 'headerOptions' => ['style' => 'width: 5%'],
-                'template' => '{view} {update} {delete}{link}',
+                'template' => '{update} {delete}{link}',
             ],
         ],
     ]); ?>

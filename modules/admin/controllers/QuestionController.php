@@ -49,7 +49,7 @@ class QuestionController extends Controller
             'sort' => Yii::$app->request->queryParams['sort']
         ]);
         $qcategories = [];
-        $qcategories = QCategory::find()->select(['name_rus', 'id'])->indexBy('id')->column();
+        $qcategories = QCategory::find()->where(['anketa_id' => $anketa_id])->select(['name_rus', 'id'])->indexBy('id')->column();
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -83,7 +83,7 @@ class QuestionController extends Controller
         $options = [];
         $options = Options::find()->select(['name', 'id'])->indexBy('id')->column();
         $qcategories = [];
-        $qcategories = QCategory::find()->select(['name_rus', 'id'])->indexBy('id')->column();
+        $qcategories = QCategory::find()->where(['anketa_id' => $anketa_id])->select(['name_rus', 'id'])->indexBy('id')->column();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(Url::to(['index', 'anketa_id' => $model->anketa_id]));
@@ -107,9 +107,9 @@ class QuestionController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $options = Options::find()->select(['name', 'id'])->indexBy('id')->column();
+        $options = Options::find()->where(['anketa_id' => $model->anketa_id])->orWhere(['anketa_id' => 0])->select(['name', 'id'])->orderBy(['anketa_id' => SORT_ASC])->indexBy('id')->column();
         $qcategories = [];
-        $qcategories = QCategory::find()->select(['name_rus', 'id'])->indexBy('id')->column();
+        $qcategories = QCategory::find()->where(['anketa_id' => $model->anketa_id])->select(['name_rus', 'id'])->indexBy('id')->column();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             if(isset(Yii::$app->request->post()['close'])) {

@@ -27,6 +27,7 @@ class Options extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'required'],
+            [['anketa_id', 'is_multiple'], 'integer'],
             [['name'], 'string', 'max' => 255],
         ];
     }
@@ -34,6 +35,11 @@ class Options extends \yii\db\ActiveRecord
     public function getOptionitems()
     {
         return $this->hasMany(OptionItems::className(), ['option_id' => 'id']);
+    }
+    
+    public function getAnketa()
+    {
+        return $this->hasOne(Anketa::className(), ['id' => 'anketa_id']);
     }
 
     /**
@@ -44,6 +50,8 @@ class Options extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Название',
+            'anketa_id' => 'Анкета',
+            'is_multiple' => 'Множественный выбор',
         ];
     }
 }

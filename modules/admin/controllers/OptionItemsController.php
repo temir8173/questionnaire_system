@@ -57,11 +57,13 @@ class OptionItemsController extends Controller
             ],
             'sort' => Yii::$app->request->queryParams['sort']
         ]);
+        $model = new OptionItems();
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'option_id' => $option_id,
+            'model' => $model,
         ]);
     }
 

@@ -79,8 +79,7 @@ AppAsset::register($this);
                 
                 <li><?= Html::a('Анкеты', ['anketa/index'], ['class' => '']) ?></li>
                 <li><?= Html::a('Категории анкет', ['anketa-category/index'], ['class' => '']) ?></li>
-                <li><?= Html::a('Категории вопросов', ['qcategory/index'], ['class' => '']) ?></li>
-                <li><?= Html::a('Варианты ответов', ['options/index'], ['class' => '']) ?></li>
+                <li><?= Html::a('Варианты ответов (общие)', ['options/index'], ['class' => '']) ?></li>
             </ul>
         </div>
         <div class="col-md-10">

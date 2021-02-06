@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $model app\models\Options */
 
 $this->title = 'Создать';
-$this->params['breadcrumbs'][] = ['label' => 'Варианты ответов', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Варианты ответов', 'url' => ['index', 'anketa_id' => $anketa_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="options-create">
@@ -15,6 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
+        'anketa_id' => $anketa_id,
     ]) ?>
 
 </div>

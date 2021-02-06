@@ -10,7 +10,15 @@ use yii\widgets\ActiveForm;
 
 <div class="option-items-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php 
+
+    if (isset($action)) 
+        $params = ['action' => [$action]];
+    else $params = [];
+
+    ?>
+
+    <?php $form = ActiveForm::begin($params); ?>
 
     <?= $form->field($model, 'name_kaz')->textInput(['maxlength' => true]) ?>
 
@@ -23,8 +31,8 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'option_id')->hiddenInput(['value' => $option_id])->label(false) ?>
 
     <div class="form-group">
-        <?= (Yii::$app->controller->action->id != 'create') ? Html::submitButton('Сохранить', ['class' => 'btn btn-success']) : '' ?>
-        <?= Html::submitInput('Сохранить и выйти', ['name' => 'close', 'class' => 'btn btn-primary']) ?>
+        <?= (Yii::$app->controller->action->id != 'create' && $action != 'create') ? Html::submitButton('Сохранить', ['class' => 'btn btn-success']) : '' ?>
+        <?= Html::submitInput(($action != 'create') ? 'Сохранить и выйти' : 'Сохранить', ['name' => 'close', 'class' => 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

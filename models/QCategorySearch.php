@@ -17,7 +17,7 @@ class QCategorySearch extends QCategory
     public function rules()
     {
         return [
-            [['id'], 'integer'],
+            [['id', 'anketa_id'], 'integer'],
             [['name_kaz', 'name_rus'], 'safe'],
         ];
     }
@@ -59,6 +59,7 @@ class QCategorySearch extends QCategory
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'anketa_id' => $this->anketa_id,
         ]);
 
         $query->andFilterWhere(['like', 'name_kaz', $this->name_kaz])
