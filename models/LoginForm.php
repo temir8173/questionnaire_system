@@ -27,7 +27,7 @@ class LoginForm extends Model
     {
         return [
             // username and password are both required
-            [['username', 'password'], 'required', 'message' => 'Заполните {attribute}' ],
+            [['username', 'password'], 'required'],
             // rememberMe must be a boolean value
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
@@ -41,8 +41,8 @@ class LoginForm extends Model
     public function attributeLabels()
     {
         return [
-            'username' => 'Имя',
-            'password' => 'Пароль',
+            'username' => Yii::t('common', 'Атыңыз'),
+            'password' => Yii::t('common', 'Құпия сөз'),
             'rememberMe' => 'Запомни меня',
         ];
     }

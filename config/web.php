@@ -54,6 +54,7 @@ $config = [
             'languages' => ['kk', 'ru'],
             'enableDefaultLanguageUrlCode' => false,
             'rules' => [
+                '/' => 'anketa/categories',
                 'admin/header-fields/<anketa_id:\d+>' => 'admin/header-fields/index',
                 'admin/question/<anketa_id:\d+>' => 'admin/question/index',
                 'anketa/cat/<category_id:\d+>' => 'anketa/index',

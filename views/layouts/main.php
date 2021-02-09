@@ -40,7 +40,7 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => Yii::t('common', 'Басты'), 'url' => ['/site/index']],
+            ['label' => Yii::t('common', 'Басты'), 'url' => ['/']],
             ['label' => 'Админ панель', 'url' => ['/admin']],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Войти', 'url' => ['/site/login']]

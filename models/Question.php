@@ -46,6 +46,20 @@ class Question extends \yii\db\ActiveRecord
         return $this->hasOne(QCategory::className(), ['id' => 'q_category_id']);
     }
 
+    public function getItems()
+    {
+        $return = [];
+        foreach ($this->options->optionitems as $item) {
+            $return[] = [
+                'id' => $item->id,
+                'name_rus' => $item->name_rus,
+                'name_kaz' => $item->name_kaz,
+                'is_own_answer' => $item->is_own_answer,
+            ];
+        }
+        return $return;
+    }
+
     /**
      * {@inheritdoc}
      */
