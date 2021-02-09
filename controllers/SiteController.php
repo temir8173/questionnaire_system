@@ -62,9 +62,7 @@ class SiteController extends Controller
     public function actionIndex()
     {
 
-        //var_dump('expression');
         $messages = [];
-        //var_dump($messages);die;
 
         return $this->render('index', [
             'messages' => $messages

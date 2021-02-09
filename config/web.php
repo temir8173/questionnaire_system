@@ -6,6 +6,8 @@ $db = require __DIR__ . '/db.php';
 $config = [
     'id' => 'basic',
     'name' => 'Сауалнама.wkau',
+    'language' => 'kk',
+    'sourceLanguage' => 'kk',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'aliases' => [
@@ -48,16 +50,21 @@ $config = [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
+            'class' => 'codemix\localeurls\UrlManager',
+            'languages' => ['kk', 'ru'],
+            'enableDefaultLanguageUrlCode' => false,
             'rules' => [
                 'admin/header-fields/<anketa_id:\d+>' => 'admin/header-fields/index',
                 'admin/question/<anketa_id:\d+>' => 'admin/question/index',
+                'anketa/cat/<category_id:\d+>' => 'anketa/index',
+                'anketa/<id:\d+>' => 'anketa/view',
             ],
         ],
         'i18n' => [
             'translations' => [
-                '*' => [
+                'common*' => [
                     'class' => 'yii\i18n\PhpMessageSource',
-                    'basePath' => '@frontend/messages',
+                    'basePath' => '@app/messages',
                     'fileMap' => [
                         'app' => 'app.php',
                     ]
@@ -74,7 +81,6 @@ $config = [
         ],
     ],
     'params' => $params,
-    'language' => 'ru-RU',
 ];
 
 if (YII_ENV_DEV) {
