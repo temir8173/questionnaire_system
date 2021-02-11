@@ -54,11 +54,31 @@ class Question extends \yii\db\ActiveRecord
                 'id' => $item->id,
                 'name_rus' => $item->name_rus,
                 'name_kaz' => $item->name_kaz,
-                'is_own_answer' => $item->is_own_answer,
+                'type' => $item->type,
             ];
         }
         return $return;
     }
+
+    public static function GrouppedQuestions($questions = []) {
+        $groupped_questions = [];
+        foreach ($questions as $key => $question) {
+            if ( $question->category->id === null ) {
+                $groupped_questions[0]['cat_id'] = 0;
+                $groupped_questions[0]['name_kaz'] = 'Жалпы сұрақтар';
+                $groupped_questions[0]['name_rus'] = 'Общие вопросы';
+                $groupped_questions[0]['questions'][] = $question;
+            } else {
+                $groupped_questions[$question->category->id]['cat_id'] = $question->category->id;
+                $groupped_questions[$question->category->id]['name_kaz'] = $question->category->name_kaz;
+                $groupped_questions[$question->category->id]['name_rus'] = $question->category->name_rus;
+                $groupped_questions[$question->category->id]['questions'][] = $question;
+            }
+        }
+        return $groupped_questions;
+    }
+
+
 
     /**
      * {@inheritdoc}

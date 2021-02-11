@@ -42,11 +42,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'headerOptions' => ['style' => 'width: 30%'],
             ],
             [
-                'attribute' => 'is_own_answer',
+                'attribute' => 'type',
                 'headerOptions' => ['style' => 'width: 5%'],
-                'value' => function($data){
-                    return ($data->is_own_answer == 1) ? 'да' : 'нет';
-                },
                 'filter' => false
             ],
             [

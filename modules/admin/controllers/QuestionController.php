@@ -81,7 +81,7 @@ class QuestionController extends Controller
     {
         $model = new Question();
         $options = [];
-        $options = Options::find()->select(['name', 'id'])->indexBy('id')->column();
+        $options = Options::find()->where(['anketa_id' => $anketa_id])->orWhere(['anketa_id' => 0])->select(['name', 'id'])->indexBy('id')->column();
         $qcategories = [];
         $qcategories = QCategory::find()->where(['anketa_id' => $anketa_id])->select(['name_rus', 'id'])->indexBy('id')->column();
 

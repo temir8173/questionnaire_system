@@ -9,9 +9,7 @@ use Yii;
  *
  * @property int $id
  * @property string $language
- * @property int $question_id
- * @property int $answer_id
- * @property string|null $answer_custom
+ * @property int $anketa_id
  */
 class Results extends \yii\db\ActiveRecord
 {
@@ -29,9 +27,9 @@ class Results extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['language', 'question_id', 'answer_id'], 'required'],
-            [['question_id', 'answer_id'], 'integer'],
-            [['language', 'answer_custom'], 'string', 'max' => 255],
+            [['language', 'anketa_id'], 'required'],
+            [['anketa_id'], 'integer'],
+            [['language'], 'string', 'max' => 255],
         ];
     }
 
@@ -43,9 +41,8 @@ class Results extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'language' => 'Language',
-            'question_id' => 'Question ID',
-            'answer_id' => 'Answer ID',
-            'answer_custom' => 'Answer Custom',
+            'anketa_id' => 'Anketa ID',
         ];
     }
+
 }

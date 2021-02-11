@@ -17,8 +17,8 @@ class OptionItemsSearch extends OptionItems
     public function rules()
     {
         return [
-            [['id', 'is_own_answer', 'option_id'], 'integer'],
-            [['name_kaz', 'name_rus'], 'safe'],
+            [['id', 'option_id'], 'integer'],
+            [['type', 'name_kaz', 'name_rus'], 'safe'],
         ];
     }
 
@@ -59,7 +59,7 @@ class OptionItemsSearch extends OptionItems
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'is_own_answer' => $this->is_own_answer,
+            'type' => $this->type,
             'option_id' => $this->option_id,
         ]);
 

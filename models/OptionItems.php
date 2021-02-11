@@ -10,7 +10,7 @@ use Yii;
  * @property int $id
  * @property string $name_kaz
  * @property string $name_rus
- * @property int|null $is_own_answer
+ * @property int|null $type
  * @property int|null $option_id
  */
 class OptionItems extends \yii\db\ActiveRecord
@@ -30,8 +30,8 @@ class OptionItems extends \yii\db\ActiveRecord
     {
         return [
             [['name_kaz', 'name_rus'], 'required'],
-            [['is_own_answer', 'option_id'], 'integer'],
-            [['name_kaz', 'name_rus'], 'string', 'max' => 255],
+            [['option_id'], 'integer'],
+            [['type', 'name_kaz', 'name_rus'], 'string', 'max' => 255],
         ];
     }
     
@@ -49,7 +49,7 @@ class OptionItems extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name_rus' => 'Название на русском',
             'name_kaz' => 'Қазақша атауы',
-            'is_own_answer' => 'Свой ответ респондента',
+            'type' => 'Тип ответа',
             'option_id' => 'Option ID',
         ];
     }

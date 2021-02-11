@@ -37,7 +37,7 @@ class HeaderFields extends \yii\db\ActiveRecord
 
     public function getAnketa()
     {
-        return $this->hasOne(Question::className(), ['id' => 'anketa_id']);
+        return $this->hasOne(Anketa::className(), ['id' => 'anketa_id']);
     }
 
     /**

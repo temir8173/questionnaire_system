@@ -24,8 +24,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name_rus')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'is_own_answer')->dropdownList(
-        [ 1 => 'Да', 0 => 'Нет'], ['prompt'=>'Выберите значение']
+    <?= $form->field($model, 'type')->dropdownList(
+        [ 'own' => 'Свой вариант респондента', 'percentage' => 'Процентное значение'], ['prompt'=>'Выберите значение']
     ) ?>
 
     <?= $form->field($model, 'option_id')->hiddenInput(['value' => $option_id])->label(false) ?>
