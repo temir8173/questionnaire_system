@@ -53,4 +53,13 @@ class HeaderFields extends \yii\db\ActiveRecord
             'name_kaz' => 'Қазақша атауы',
         ];
     }
+
+    public static function getTypes() {
+        return [
+            'subject' => 'Дисциплина',
+            'teacher' => 'Преподаватель',
+            'program' => 'Образовательная программа',
+        ];
+    }
+
 }

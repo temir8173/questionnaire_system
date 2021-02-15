@@ -61,7 +61,6 @@ class AnketaController extends Controller
         $model = new Anketa();
         $categories = [];
         $categories = AnketaCategory::find()->select(['name_rus', 'id'])->indexBy('id')->column();
-        //$headerFileds = new HeaderFileds();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             if(isset(Yii::$app->request->post()['close'])) {

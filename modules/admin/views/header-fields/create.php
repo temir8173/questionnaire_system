@@ -14,9 +14,18 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <?= $this->render('_form', [
-        'model' => $model,
-        'anketa_id' => $anketa_id
-    ]) ?>
+    <?php 
+    if ($standart) {
+    	echo $this->render('_form_st', [
+	        'model' => $model,
+	        'anketa_id' => $anketa_id
+	    ]);
+	} else {
+		echo $this->render('_form', [
+	        'model' => $model,
+	        'anketa_id' => $anketa_id
+	    ]);
+	}
+	?>
 
 </div>

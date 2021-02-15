@@ -62,6 +62,13 @@ a {
     text-decoration: none;
 }
 
+form input[type=text].error, 
+form input[type=password].error, 
+form input[type=email].error, 
+form select.error, 
+form textarea.error {border: 1px solid rgba(204,0,0,0.3) !important;}
+div.chosen-check.error p {border: 1px solid rgba(204,0,0,0.3) !important;}
+
 
 .wrap {
     min-height: 100%;
@@ -348,10 +355,6 @@ h1 {
 
 .close {
     margin-left: 10px!important;
-}
-.error {
-    font-size: 34px;
-    margin-top: 30vh;
 }
 
 .user_menu {

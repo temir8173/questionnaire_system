@@ -23,6 +23,9 @@ class AppAsset extends AssetBundle
         'css/site.css',
     ];
     public $js = [
+        'js/jqueryForm.js',
+        'js/simply-toast.min.js',
+        'js/core.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

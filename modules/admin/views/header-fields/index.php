@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\GridView;
+use app\models\HeaderFields;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\HeaderFieldsSearch */
@@ -18,6 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Создать', Url::to(['create', 'anketa_id' => $anketa_id]), ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Добавить стандартное поле', Url::to(['create', 'anketa_id' => $anketa_id, 'standart' => true]), ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -30,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             [
                 'attribute' => 'anketa_id',
-                'headerOptions' => ['style' => 'width: 44%'],
+                'headerOptions' => ['style' => 'width: 22%'],
                 'value' => function($data){
                     return $data->anketa->name_rus;
                 },
@@ -43,6 +45,16 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'name_kaz',
                 'headerOptions' => ['style' => 'width: 22%'],
+            ],
+            [
+                'attribute' => 'type',
+                'headerOptions' => ['style' => 'width: 22%'],
+                'value' => function($data)
+                {
+                    $types = HeaderFields::getTypes();
+                    return ( !empty($types[$data->type]) ) ? $types[$data->type] : ( ($data->type == 'custom') ? 'Произвольное поле' : $data->type );
+                },
+                'filter' => array_merge(HeaderFields::getTypes(), ['custom' => 'Произвольное поле']),
             ],
 
 

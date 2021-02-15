@@ -16,6 +16,7 @@ use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Json;
 
 class AnketaController extends Controller
 {
@@ -110,47 +111,56 @@ class AnketaController extends Controller
         var_dump(Yii::$app->request->post());die;
         echo '</pre>';*/
 
-        /* Сохраняем в БД */
-        if ( $result->load(Yii::$app->request->post()) ) {
-            $result->save();
-        }
-        if (Model::loadMultiple($headerResults, Yii::$app->request->post()) && Model::loadMultiple($resultItems, Yii::$app->request->post())) {
-            foreach ($headerResults as $headerResult) {
-                $headerResult->result_id = $result->id;
-                $headerResult->save();
+        /* Сохраняем в БД если получили ajax запрос */
+        if ( Yii::$app->request->isAjax ) {
+
+            $return = [
+                'error' => 1,
+                'message' => 'Ошибка формата данных',
+            ];
+
+            if ( $result->load(Yii::$app->request->post()) ) {
+                $result->save();
             }
-            foreach ($resultItems as $resultItem) {
-                if ( is_array($resultItem->answer_id) ) {
-                    foreach ($resultItem->answer_id as $key => $answer) {
-                        $multipleResultItem = new ResultItems();
-                        $multipleResultItem->result_id = $result->id;
-                        $multipleResultItem->question_id = $resultItem->question_id;
-                        if ($answer < 0) {
-                            $multipleResultItem->answer_id = -$answer;
-                            $multipleResultItem->answer_custom = $resultItem->answer_custom;
-                        } else
-                            $multipleResultItem->answer_id = $answer;                        
-                        $multipleResultItem->save();
-                    }
-                } else {
-                    $resultItem->result_id = $result->id;
-                    if ($resultItem->answer_id > 0) 
-                        $resultItem->answer_custom = null;
-                    elseif ($resultItem->answer_id < 0)
-                        $resultItem->answer_id = -$resultItem->answer_id;
-                    $resultItem->save();
+            if (Model::loadMultiple($headerResults, Yii::$app->request->post()) && Model::loadMultiple($resultItems, Yii::$app->request->post())) {
+                /* Сохраняем ответы из шапки */
+                foreach ($headerResults as $headerResult) {
+                    $headerResult->result_id = $result->id;
+                    $headerResult->save();
                 }
+                /* сохраняем ответы на непосредственно вопросы */
+                foreach ($resultItems as $resultItem) {
+                    /* если множественный выбор */
+                    if ( is_array($resultItem->answer_id) ) {
+                        foreach ($resultItem->answer_id as $key => $answer) {
+                            $multipleResultItem = new ResultItems();
+                            $multipleResultItem->result_id = $result->id;
+                            $multipleResultItem->question_id = $resultItem->question_id;
+                            /* если свой ответ респондента ( для различения айдишники приходят в отрицательных значениях ) */
+                            if ($answer < 0) {
+                                $multipleResultItem->answer_id = -$answer;
+                                $multipleResultItem->answer_custom = $resultItem->answer_custom;
+                            } else
+                                $multipleResultItem->answer_id = $answer;                        
+                            $multipleResultItem->save();
+                        }
+                    } else {
+                        $resultItem->result_id = $result->id;
+                        /* если свой ответ респондента ( для различения айдишники приходят в отрицательных значениях ) */
+                        if ($resultItem->answer_id > 0) 
+                            $resultItem->answer_custom = null;
+                        elseif ($resultItem->answer_id < 0)
+                            $resultItem->answer_id = -$resultItem->answer_id;
+                        $resultItem->save();
+                    }
+                }
+                $return['error'] = 0;
+                $return['message'] = 'Данные успешно сохранены';
             }
+            echo Json::encode($return); die;
         }
 
-        return $this->render('view', [
-            'anketa' => $anketa,
-            'questions' => $questions,
-            'headerFields' => $headerFields,
-            'result' => $result,
-            'resultItems' => $resultItems,
-            'headerResults' => $headerResults,
-        ]);
+        return $this->render('view', compact('anketa', 'questions', 'headerFields', 'result', 'resultItems', 'headerResults'));
     }
 
     

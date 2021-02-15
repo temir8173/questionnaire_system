@@ -41,7 +41,7 @@ class HeaderFieldsController extends Controller
         $dataProvider = $searchModel->search([
             $searchModel->formName()=>[
                 'anketa_id'=>$anketa_id, 
-                'type' => 'custom', 
+                'type' => Yii::$app->request->queryParams[$searchModel->formName()]['type'], 
                 'name_rus' => Yii::$app->request->queryParams[$searchModel->formName()]['name_rus'],
                 'name_kaz' => Yii::$app->request->queryParams[$searchModel->formName()]['name_kaz'],
             ],
@@ -73,7 +73,7 @@ class HeaderFieldsController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($anketa_id = 0)
+    public function actionCreate($anketa_id = 0, $standart = 0 )
     {
         $model = new HeaderFields();
 
@@ -85,7 +85,8 @@ class HeaderFieldsController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-            'anketa_id' => $anketa_id
+            'anketa_id' => $anketa_id,
+            'standart' => $standart,
         ]);
     }
 
