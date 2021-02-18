@@ -29,12 +29,13 @@ foreach ($questions as $category) : ?>
                         'label' => $option['name_rus'], 
                         'value' => ($option['type'] == 'own') ? (-$option['id']) : $option['id'], 
                         'id' => $question->id.'-'.$index.'-'.$option['id'], 
+                        'class' => ($option['type'] == 'own') ? 'custom-answer' : '',
                         'uncheck' => null, 
                         'is_own' => ($option['type'] == 'own') ? $option['id'] : 'no' 
                     ]);
                 }
                 if ($option['type'] == 'own') {
-                    echo $form->field($resultItems[$index], "[$index]answer_custom")->textInput(['parent_id' => $option['id']])->label(false);
+                    echo $form->field($resultItems[$index], "[$index]answer_custom")->textInput(['parent_id' => $option['id'], 'style' => 'display: none;'])->label(false);
                 }
             }
         } else {
@@ -44,15 +45,26 @@ foreach ($questions as $category) : ?>
                         'label' => $option['name_rus'], 
                         'value' => ($option['type'] == 'own') ? (-$option['id']) : $option['id'], 
                         'id' => $question->id.'-'.$index.'-'.$option['id'], 
+                        'class' => ($option['type'] == 'own') ? 'custom-answer' : '',
                         'uncheck' => null, 
                         'is_own' => ($option['type'] == 'own') ? $option['id'] : 'no' 
                     ]);
                 }
                 if ($option['type'] == 'own') {
-                    echo $form->field($resultItems[$index], "[$index]answer_custom")->textInput(['parent_id' => $option['id']])->label(false);
+                    echo $form->field($resultItems[$index], "[$index]answer_custom")->textInput(['parent_id' => $option['id'], 'style' => 'display: none;'])->label(false);
                 } elseif ($option['type'] == 'percentage') {
                     echo $form->field($resultItems[$index], "[$index]answer_id")->hiddenInput([ 'value' => (-$option['id']) ])->label(false);
-                    echo $form->field($resultItems[$index], "[$index]answer_custom")->textInput(['class' => 'input-percentage int required'])->label($option['name_rus']);
+                    echo '<div class="slidecontainer">';
+                    echo $form->field($resultItems[$index], "[$index]answer_custom")->textInput([
+                        'id' => 'myRange',
+                        'class' => 'input-percentage int required slider-input',
+                        'type' => 'range',
+                        'min' => '1',
+                        'max' => '100',
+                        'value' => '50',
+                    ])->label($option['name_rus']);
+                    echo '<p><span id="demo"></span></p>';
+                    echo '</div>';
                 }
             }
         } ?>

@@ -29,6 +29,7 @@ use app\models\Institut;
 		<?= Html::dropDownList('Header[school]','', [],[
 			'id' => 'subject-school',
 			'class'=>'form-control select-dynamic',
+			'disabled'=> 'disabled',
 			'data' => [
 				'target' => 'subject',
 				'target-insert' => 'subject',
@@ -38,6 +39,7 @@ use app\models\Institut;
 		<?= $form->field($headerResults[$index], "[$index]answer_id")->dropDownList([], [
 			'id' => 'subject',
 			'class'=>'form-control int required',
+			'disabled'=> 'disabled',
 		])->label(Yii::t('common', 'Пән')) ?>
 	<?php elseif ( $headerField->type == 'teacher' ) : ?>
 		<label class="control-label" for="teacher-institute"><?= Yii::t('common', 'Институт') ?></label>
@@ -55,6 +57,7 @@ use app\models\Institut;
 		<?= Html::dropDownList('Header[school]','', [],[
 			'id' => 'teacher-school',
 			'class'=>'form-control select-dynamic',
+			'disabled'=> 'disabled',
 			'data' => [
 				'target' => 'teacher',
 				'target-insert' => 'teacher',
@@ -64,6 +67,7 @@ use app\models\Institut;
 		<?= $form->field($headerResults[$index], "[$index]answer_id")->dropDownList([], [
 			'id' => 'teacher',
 			'class'=>'form-control int required',
+			'disabled'=> 'disabled',
 		])->label(Yii::t('common', 'Оқытушы')) ?>
 	<?php elseif ( $headerField->type == 'program' ) : ?>
 		<label class="control-label" for="program-institute"><?= Yii::t('common', 'Институт') ?></label>
@@ -81,6 +85,7 @@ use app\models\Institut;
 		<?= Html::dropDownList('Header[school]','', [],[
 			'id' => 'program-school',
 			'class'=>'form-control select-dynamic',
+			'disabled'=> 'disabled',
 			'data' => [
 				'target' => 'program',
 				'target-insert' => 'program',
@@ -90,6 +95,7 @@ use app\models\Institut;
 		<?= $form->field($headerResults[$index], "[$index]answer_id")->dropDownList([], [
 			'id' => 'program',
 			'class'=>'form-control int required',
+			'disabled'=> 'disabled',
 		])->label(Yii::t('common', 'Білім беру бағдарламасы')) ?>
 		
 	<?php else : ?>

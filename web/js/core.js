@@ -78,50 +78,62 @@ $('document').ready(function(){
 			url: url,
 			success: function(data){
 				console.log(data);
-				$('#'+target_insert).html(data);
+				$('#'+target_insert).html(data).removeAttr('disabled');
 			},
 			complete: function(response){
 				
 
 			},
 			error: function(requestObject, error, errorThrown){
-				alert('err');
 				setNotice('Системная ошибка', 'warning');
 				return false;
 			}
 		});
 	});
+
+	$('input[type=radio]').change(function() {
+		var id = $(this).parents( ".chosen-check" ).find('.custom-answer').attr('is_own');
+		if ( $(this).parents( ".chosen-check" ).find('.custom-answer').is(':checked') ){
+			$('input[parent_id='+id+']').show(200);
+		} else {
+			$('input[parent_id='+id+']').hide(200);
+		}
+	});
+
+	$('input[type=checkbox].custom-answer').change(function() {
+		var id = $(this).attr('is_own');
+		if ( $(this).is(':checked') ){
+			$('input[parent_id='+id+']').show(200);
+		} else {
+			$('input[parent_id='+id+']').hide(200);
+		}
+	});
 	
 
 	$('body').find('.js_date').each(function(){
-			var el = $(this);
-			if (el.hasClass('alldate')) {
-				el.datetimepicker({
-					timepicker:false,
-					format:'d.m.Y',
-					lang:'ru',
-					closeOnDateSelect: true,
-					//minDate: '-1970/01/01',
-					defaultDate:new Date(),
-					dayOfWeekStart:1,
-				});
-			} else {
-				el.datetimepicker({
-					timepicker:false,
-					format:'d.m.Y',
-					lang:'ru',
-					closeOnDateSelect: true,
-					minDate: '-1970/01/01',
-					defaultDate:new Date(),
-					dayOfWeekStart:1,			
-				});
-			}
-		});
-
-
-
-
-
+		var el = $(this);
+		if (el.hasClass('alldate')) {
+			el.datetimepicker({
+				timepicker:false,
+				format:'d.m.Y',
+				lang:'ru',
+				closeOnDateSelect: true,
+				//minDate: '-1970/01/01',
+				defaultDate:new Date(),
+				dayOfWeekStart:1,
+			});
+		} else {
+			el.datetimepicker({
+				timepicker:false,
+				format:'d.m.Y',
+				lang:'ru',
+				closeOnDateSelect: true,
+				minDate: '-1970/01/01',
+				defaultDate:new Date(),
+				dayOfWeekStart:1,			
+			});
+		}
+	});
 
 	$('.arrow').click( function(e){
 
@@ -132,6 +144,15 @@ $('document').ready(function(){
         $(target_close).hide();
         $(target).fadeIn(500);
     });
+
+
+	var slider = document.getElementById("myRange");
+	var output = document.getElementById("demo");
+	output.innerHTML = slider.value;
+
+	slider.oninput = function() {
+	  output.innerHTML = this.value;
+	}
 
 })
 
@@ -274,7 +295,7 @@ function resetStars() {
 function SetDefaultSelect(select) {
 	var target_insert = select.attr('data-target-insert');
 	if ( target_insert != undefined ) {
-		$('#'+target_insert).html('');
+		$('#'+target_insert).html('').attr('disabled', 'disabled');
 		SetDefaultSelect($('#'+target_insert));
 	}
 }

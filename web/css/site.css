@@ -209,7 +209,7 @@ a.desc:after {
   width: 100%;
 }
 
-.slider {
+.slider-input {
   -webkit-appearance: none;
   width: 100%;
   height: 15px;
@@ -221,11 +221,11 @@ a.desc:after {
   transition: opacity .2s;
 }
 
-.slider:hover {
+.slider-input:hover {
   opacity: 1;
 }
 
-.slider::-webkit-slider-thumb {
+.slider-input::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
   width: 25px;
@@ -235,7 +235,7 @@ a.desc:after {
   cursor: pointer;
 }
 
-.slider::-moz-range-thumb {
+.slider-input::-moz-range-thumb {
   width: 25px;
   height: 25px;
   border-radius: 50%;
@@ -292,6 +292,9 @@ a.desc:after {
     overflow-y: auto;
 }
 
+select:disabled {
+    opacity: 0.2;
+}
 
 
 textarea::-webkit-input-placeholder {
