@@ -116,14 +116,16 @@ foreach ($countedResults as $k => $countedResult) {
 
 		foreach ($question['options'] as $option) {
 			if ( $option['option']['type'] == 'percentage' ) {
-				$resValue = round(array_sum($option['custom_answer'])/count($option['custom_answer']), 1).'% ('.$option['count'].')';
+				$resultValue = round(array_sum($option['custom_answer'])/count($option['custom_answer']), 1).'% ('.$option['count'].')';
+				$questionName = (Yii::$app->language == 'kk') ? $option['option']['name_kaz'].' (орташа)' : $option['option']['name_rus'].' (среднее)';
 			} else {
-				$resValue = round($option['count']/$question['total']*100, 1).'% ('.$option['count'].')';
+				$resultValue = round($option['count']/$question['total']*100, 1).'% ('.$option['count'].')';
+				$questionName = (Yii::$app->language == 'kk') ? $option['option']['name_kaz'].' ' : $option['option']['name_rus'].' ';
 			}
 
 			$sheet->mergeCells('B'.$row.':L'.$row);
-			$sheet->setCellValue('B'.$row, (Yii::$app->language == 'kk') ? $option['option']['name_kaz'].' ' : $option['option']['name_rus'].' ');
-			$sheet->setCellValue('M'.$row, $resValue );
+			$sheet->setCellValue('B'.$row, $questionName);
+			$sheet->setCellValue('M'.$row, $resultValue );
 			$sheet->getRowDimension($row)->setRowHeight(15);
 			$sheet->getStyle('B'.$row)->getFont()->setSize(12);
 			$row++;

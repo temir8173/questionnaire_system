@@ -9,6 +9,7 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+use app\widgets\MultiLang\MultiLang;
 
 AppAsset::register($this);
 ?>
@@ -35,6 +36,7 @@ AppAsset::register($this);
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
+    echo MultiLang::widget(['cssClass'=>'pull-right language']);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
@@ -80,6 +82,7 @@ AppAsset::register($this);
                 <li><?= Html::a('Анкеты', ['anketa/index'], ['class' => '']) ?></li>
                 <li><?= Html::a('Категории анкет', ['anketa-category/index'], ['class' => '']) ?></li>
                 <li><?= Html::a('Варианты ответов (общие)', ['options/index'], ['class' => '']) ?></li>
+                <li><?= Html::a('Результаты анкетирования', ['results/index'], ['class' => '']) ?></li>
             </ul>
         </div>
         <div class="col-md-10">

@@ -13,7 +13,7 @@ use yii\widgets\ActiveForm;
 		
 		<?php $form = ActiveForm::begin([
 		    'id' => 'login-form',
-		    'action' => Url::toRoute('/results/export'),
+		    'action' => Url::toRoute('results/export'),
 		    'options' => ['class' => ''],
 		]) ?>
 
@@ -29,7 +29,7 @@ use yii\widgets\ActiveForm;
 			'data' => [
 				'target' => 'anketa',
 				'target-insert' => 'result-anketa',
-				'ajaxurl' => Url::toRoute('ajax/select')
+				'ajaxurl' => Url::toRoute('/ajax/select')
 			],
 		]) ?>
 		<label class="control-label" for="result-anketa"><?= Yii::t('common', 'Сауалнамалар') ?></label>
@@ -41,7 +41,7 @@ use yii\widgets\ActiveForm;
 			'data' => [
 				'target' => 'result-fields',
 				'target-insert' => 'result-fields',
-				'ajaxurl' => Url::toRoute('ajax/result-params')
+				'ajaxurl' => Url::toRoute('/ajax/result-params')
 			],
 		]) ?>
 		<label class="control-label" for="result-language"><?= Yii::t('common', 'Тіл') ?></label>
@@ -56,7 +56,7 @@ use yii\widgets\ActiveForm;
 		</div>
 
 		<div class="form-group">
-		        <br><?= Html::submitButton('Жүктеу', ['class' => 'btn btn-primary']) ?>
+		        <br><?= Html::submitButton(Yii::t('common', 'Жүктеу'), ['class' => 'btn btn-primary']) ?>
 		</div>
 
 		<?php ActiveForm::end() ?>

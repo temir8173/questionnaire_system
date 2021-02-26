@@ -1,6 +1,6 @@
 <?php
 
-namespace app\controllers;
+namespace app\modules\admin\controllers;
 
 use Yii;
 use yii\base\Model;
@@ -73,20 +73,22 @@ class ResultsController extends Controller
         $resultFilters = Yii::$app->request->post('Result');
         $languages = ( !empty($resultFilters['language']) ) ? [$resultFilters['language']] : ['kk', 'ru'];
         $anketa = Anketa::findOne($resultFilters['anketa_id']);
-        if ( !empty($resultFilters['header']) ) {
-            foreach ($resultFilters['header'] as $k => $fieldHeader) {
-                if ( !empty($fieldHeader['fields']) ) {
-                    if ( $fieldHeader['type'] == 'custom' ) {
-                        $where = [ 'h.answer_custom' => $fieldHeader['fields'], 'h.header_question_id' => [$k] ];
-                    } else {
-                        $where = [ 'h.answer_id' => $fieldHeader['fields'], 'h.header_question_id' => [$k] ];
-                    }
-                    $i++;
+
+        foreach ($resultFilters['header'] as $k => $fieldHeader) {
+            if ( !empty($fieldHeader['fields']) ) {
+                if ( $fieldHeader['type'] == 'custom' ) {
+                    $where = [ 'h.answer_custom' => $fieldHeader['fields'], 'h.header_question_id' => [$k] ];
+                } else {
+                    $where = [ 'h.answer_id' => $fieldHeader['fields'], 'h.header_question_id' => [$k] ];
                 }
-                if ( $i > 1 )
-                    $where = [ 'h.id' => 0, 'h.header_question_id' => 0 ];
-                    
+                $i++;
             }
+        }
+        
+        if ( $i > 1 )
+            $where = [ 'h.id' => 0, 'h.header_question_id' => 0 ];
+
+        if ($i !== 0) {
             $results = Results::find()
             ->joinWith('headerResults h')
             ->where(['anketa_id' => $anketa->id])
@@ -99,12 +101,11 @@ class ResultsController extends Controller
             } elseif ( !empty($where['h.answer_id']) ) {
                 $headerResults = HeaderResults::find()->where([ 'answer_id' => $where['h.answer_id'], 'header_question_id' => $where['h.header_question_id'] ])->all();
             }
-            
         } else {
             $results = Results::find()
             ->joinWith('headerResults h')
             ->where(['anketa_id' => $anketa->id])
-            ->andWhere(['language' => ( !empty($resultFilters['language']) ) ? $resultFilters['language'] : ['kk', 'ru'] ])
+            ->andWhere(['language' => $languages ])
             ->with('resultsItems.question.category', 'resultsItems.optionItem', 'resultsItems.question.options.optionitems')
             ->all();
         }

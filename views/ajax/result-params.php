@@ -10,7 +10,7 @@ use yii\helpers\Url;
 
 <?php foreach ($headerFields as $headerField) : ?>
 	<?php if( !empty($headerField->results) ) : ?>
-		<label  for="#header-field-<?= $headerField->id ?>">
+		<label  for="header-field-<?= $headerField->id ?>">
 			<?= ( $headerField->type == 'custom' ) ? ( (Yii::$app->language == 'kk') ? $headerField->name_kaz : $headerField->name_rus ) : $headerField->typeName ?>
 		</label>
 
