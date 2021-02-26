@@ -3,19 +3,16 @@ $('document').ready(function(){
 	//initStars();
 
     $('body').on('submit', '.ajax-form', function(e){
-    	console.log('test');
+    	
 		var form = $(this);	
 		e.preventDefault();
 		e.stopPropagation();
-		alert('test');
 		
 		if (!form.hasClass('sending') && DefaultCheckForm(form)) {
 			form.addClass('sending');
 			$(form).ajaxSubmit({
 				dataType: 'json',
 				success: function(data){
-					console.log(data);
-					//alert(data);
 
 					if (data.error != undefined){
 						if (data.message != undefined) {
@@ -77,12 +74,10 @@ $('document').ready(function(){
 			data: {id: id, target: target},
 			url: url,
 			success: function(data){
-				console.log(data);
 				$('#'+target_insert).html(data).removeAttr('disabled');
 			},
 			complete: function(response){
 				
-
 			},
 			error: function(requestObject, error, errorThrown){
 				setNotice('Системная ошибка', 'warning');
@@ -145,13 +140,14 @@ $('document').ready(function(){
         $(target).fadeIn(500);
     });
 
-
 	var slider = document.getElementById("myRange");
 	var output = document.getElementById("demo");
-	output.innerHTML = slider.value;
+	if (output != undefined) {
+		output.innerHTML = slider.value;
 
-	slider.oninput = function() {
-	  output.innerHTML = this.value;
+		slider.oninput = function() {
+		  output.innerHTML = this.value;
+		}
 	}
 
 })
@@ -295,7 +291,7 @@ function resetStars() {
 function SetDefaultSelect(select) {
 	var target_insert = select.attr('data-target-insert');
 	if ( target_insert != undefined ) {
-		$('#'+target_insert).html('').attr('disabled', 'disabled');
+		$('#'+target_insert).html('<option value=""></option>').attr('disabled', 'disabled');
 		SetDefaultSelect($('#'+target_insert));
 	}
 }

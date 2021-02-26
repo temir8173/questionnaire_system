@@ -35,6 +35,31 @@ class HeaderResults extends \yii\db\ActiveRecord
         ];
     }
 
+    public function getQuestion()
+    {
+        return $this->hasOne(HeaderFields::className(), ['id' => 'header_question_id']);
+    }
+
+    public function getName()
+    {
+        switch ($this->question->type) {
+            case 'program':
+                return $this->hasOne(Program::className(), ['id' => 'answer_id']);
+                break;
+            case 'teacher':
+                return $this->hasOne(Teacher::className(), ['id' => 'answer_id']);
+                break;
+            case 'subject':
+                return $this->hasOne(Subject::className(), ['id' => 'answer_id']);
+                break;
+            
+            default:
+                return null;
+                break;
+        }
+        
+    }
+
     /**
      * {@inheritdoc}
      */

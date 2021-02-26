@@ -8,7 +8,7 @@ foreach ($questions as $category) : ?>
     <?php if ( $c_count > 1 ) : ?>
         <h4>
             <span class="num__span"><?= $c_num.') ' ?></span>
-            <?= $category['name_rus'] ?>
+            <?= (Yii::$app->language == 'kk') ? $category['name_kaz'] : $category['name_rus'] ?>
         </h4>
     <?php endif; ?>
 
@@ -17,7 +17,7 @@ foreach ($questions as $category) : ?>
         <div class="chosen-check">
         <p>
             <span class="num__span1"><?= ($c_count > 1) ? $c_num.'.'.($q_num+1) : ($q_num+1) ?>) </span>
-            <?= $question->name_rus ?>
+            <?= (Yii::$app->language == 'kk') ? $question->name_kaz : $question->name_rus ?>
         </p>
 
         <?= $form->field($resultItems[$index], "[$index]question_id")->hiddenInput(['value' => $question->id])->label(false) ?>
@@ -26,7 +26,7 @@ foreach ($questions as $category) : ?>
             foreach ( $question->items as $option ) { 
                 if ($option['type'] !== 'percentage') {
                     echo $form->field($resultItems[$index], "[$index]answer_id[]")->checkbox([
-                        'label' => $option['name_rus'], 
+                        'label' => (Yii::$app->language == 'kk') ? $option['name_kaz'] : $option['name_rus'], 
                         'value' => ($option['type'] == 'own') ? (-$option['id']) : $option['id'], 
                         'id' => $question->id.'-'.$index.'-'.$option['id'], 
                         'class' => ($option['type'] == 'own') ? 'custom-answer' : '',
@@ -42,7 +42,7 @@ foreach ($questions as $category) : ?>
             foreach ( $question->items as $option ) { 
                 if ($option['type'] !== 'percentage') {
                     echo $form->field($resultItems[$index], "[$index]answer_id")->radio([
-                        'label' => $option['name_rus'], 
+                        'label' => (Yii::$app->language == 'kk') ? $option['name_kaz'] : $option['name_rus'], 
                         'value' => ($option['type'] == 'own') ? (-$option['id']) : $option['id'], 
                         'id' => $question->id.'-'.$index.'-'.$option['id'], 
                         'class' => ($option['type'] == 'own') ? 'custom-answer' : '',
@@ -62,7 +62,7 @@ foreach ($questions as $category) : ?>
                         'min' => '1',
                         'max' => '100',
                         'value' => '50',
-                    ])->label($option['name_rus']);
+                    ])->label((Yii::$app->language == 'kk') ? $option['name_kaz'] : $option['name_rus']);
                     echo '<p><span id="demo"></span></p>';
                     echo '</div>';
                 }

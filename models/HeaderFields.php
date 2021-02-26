@@ -40,6 +40,37 @@ class HeaderFields extends \yii\db\ActiveRecord
         return $this->hasOne(Anketa::className(), ['id' => 'anketa_id']);
     }
 
+    public function getResults()
+    {
+        return $this->hasMany(HeaderResults::className(), ['header_question_id' => 'id']);
+    }
+
+    public function getResultsArray()
+    {
+        foreach ($this->results as $result) { 
+            if ( $this->type == 'custom' ) {
+                $resultsArray[$result->answer_custom] = $result->answer_custom;
+            } elseif ( $this->type == 'teacher' ) {
+                $resultsArray[$result->answer_id] = $result->name->name;
+            } else {
+                $resultsArray[$result->answer_id] = $result->name->name_rus;
+            }
+        }
+        return $resultsArray;
+    }
+
+    public static function getTypes() {
+        return [
+            'subject' => Yii::t('common', 'Пән'),
+            'teacher' => Yii::t('common', 'Оқытушы'),
+            'program' => Yii::t('common', 'Білім беру бағдарламасы'),
+        ];
+    }
+
+    public function getTypeName() {
+        return self::getTypes()[$this->type];
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -51,14 +82,6 @@ class HeaderFields extends \yii\db\ActiveRecord
             'type' => 'Тип',
             'name_rus' => 'Название на русском',
             'name_kaz' => 'Қазақша атауы',
-        ];
-    }
-
-    public static function getTypes() {
-        return [
-            'subject' => 'Дисциплина',
-            'teacher' => 'Преподаватель',
-            'program' => 'Образовательная программа',
         ];
     }
 

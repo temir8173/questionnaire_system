@@ -51,8 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'headerOptions' => ['style' => 'width: 22%'],
                 'value' => function($data)
                 {
-                    $types = HeaderFields::getTypes();
-                    return ( !empty($types[$data->type]) ) ? $types[$data->type] : ( ($data->type == 'custom') ? 'Произвольное поле' : $data->type );
+                    return ($data->typeName) ? $data->typeName : 'Произвольное поле';
                 },
                 'filter' => array_merge(HeaderFields::getTypes(), ['custom' => 'Произвольное поле']),
             ],

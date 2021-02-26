@@ -11,6 +11,8 @@ use app\models\Program;
 use app\models\Teacher;
 use app\models\Subject;
 use app\models\School;
+use app\models\Anketa;
+use app\models\HeaderFields;
 
 class AjaxController extends Controller
 {
@@ -60,14 +62,22 @@ class AjaxController extends Controller
     {
 
         $options = [];
-        if ( $target == 'program' ) {
-            $options = Program::find()->select([(Yii::$app->language == 'kk') ? 'name_kaz' : 'name_rus', 'id'])->where(['school_id' => $id])->indexBy('id')->column();
-        } elseif ( $target == 'teacher' ) {
-            $options = Teacher::find()->select(['name', 'id'])->where(['school_id' => $id])->indexBy('id')->column();
-        } elseif ( $target == 'subject' ) {
-            $options = Subject::find()->select([(Yii::$app->language == 'kk') ? 'name_kaz' : 'name_rus', 'id'])->where(['school_id' => $id])->indexBy('id')->column();
-        } elseif ( $target == 'school' ) {
-            $options = School::find()->select([(Yii::$app->language == 'kk') ? 'name_kaz' : 'name_rus', 'id'])->where(['institute_id' => $id])->indexBy('id')->column();
+        switch ($target) {
+            case 'program':
+                $options = Program::find()->select([(Yii::$app->language == 'kk') ? 'name_kaz' : 'name_rus', 'id'])->where(['school_id' => $id])->indexBy('id')->column();
+                break;
+            case 'teacher':
+                $options = Teacher::find()->select(['name', 'id'])->where(['school_id' => $id])->indexBy('id')->column();
+                break;
+            case 'subject':
+                $options = Subject::find()->select([(Yii::$app->language == 'kk') ? 'name_kaz' : 'name_rus', 'id'])->where(['school_id' => $id])->indexBy('id')->column();
+                break;
+            case 'school':
+                $options = School::find()->select([(Yii::$app->language == 'kk') ? 'name_kaz' : 'name_rus', 'id'])->where(['institute_id' => $id])->indexBy('id')->column();
+                break;
+            case 'anketa':
+                $options = Anketa::find()->select([(Yii::$app->language == 'kk') ? 'name_kaz' : 'name_rus', 'id'])->where(['category_id' => $id])->indexBy('id')->column();
+                break;
         }
 
         if ( Yii::$app->request->isAjax ) {
@@ -78,6 +88,21 @@ class AjaxController extends Controller
             throw new \yii\web\HttpException(404,'Страница не найдена');
         }
 
+    }
+
+    public function actionResultParams($id = 0, $target = null)
+    {
+
+        $headerFields = [];
+        $headerFields = HeaderFields::find()->where(['anketa_id' => $id])->with('results.question')->all();
+
+        if ( Yii::$app->request->isAjax ) {
+            return $this->renderAjax('result-params', [
+                'headerFields' => $headerFields
+            ]);
+        } else {
+            throw new \yii\web\HttpException(404,'Страница не найдена');
+        }
     }
     
 }

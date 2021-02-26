@@ -11,7 +11,7 @@ use yii\widgets\ActiveForm;
 	<div class="col-one">
         <div class="questionary__inner">
 
-            <h1><?= $anketa->name_rus ?></h1>
+            <h1><?= (Yii::$app->language == 'kk') ? $anketa->name_kaz : $anketa->name_rus ?></h1>
 
             <?php $form = ActiveForm::begin([
                 'enableClientValidation'=>false, 

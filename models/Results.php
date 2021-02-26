@@ -33,6 +33,16 @@ class Results extends \yii\db\ActiveRecord
         ];
     }
 
+    public function getResultsItems()
+    {
+        return $this->hasMany(ResultItems::classname(), ['result_id' => 'id']);
+    }
+
+    public function getHeaderResults()
+    {
+        return $this->hasMany(HeaderResults::classname(), ['result_id' => 'id']);
+    }
+
     /**
      * {@inheritdoc}
      */

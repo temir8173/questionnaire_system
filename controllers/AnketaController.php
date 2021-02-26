@@ -107,10 +107,6 @@ class AnketaController extends Controller
         $questions = Question::GrouppedQuestions($questions);
         $result = new Results();
 
-        /*echo '<pre>';
-        var_dump(Yii::$app->request->post());die;
-        echo '</pre>';*/
-
         /* Сохраняем в БД если получили ajax запрос */
         if ( Yii::$app->request->isAjax ) {
 

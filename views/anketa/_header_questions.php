@@ -8,7 +8,11 @@ use app\models\Institut;
 
 <?php foreach ( $headerFields as $index => $headerField ) : ?>
 
-    <?= ($headerField->type == 'custom') ? '<p>'.$headerField->name_rus.'</p>' : '' ?>
+    <?php if ($headerField->type == 'custom' && Yii::$app->language == 'kk' ) : ?>
+    	<p><?= $headerField->name_kaz ?></p>
+	<?php elseif ($headerField->type == 'custom' && Yii::$app->language == 'ru' ) : ?>
+    	<p><?= $headerField->name_rus ?></p>
+	<?php endif; ?>
 
     <?= $form->field($headerResults[$index], "[$index]header_question_id")->hiddenInput(['value' => $headerField->id])->label(false) ?>
     
@@ -30,6 +34,7 @@ use app\models\Institut;
 			'id' => 'subject-school',
 			'class'=>'form-control select-dynamic',
 			'disabled'=> 'disabled',
+			'prompt'=> '',
 			'data' => [
 				'target' => 'subject',
 				'target-insert' => 'subject',
@@ -40,6 +45,7 @@ use app\models\Institut;
 			'id' => 'subject',
 			'class'=>'form-control int required',
 			'disabled'=> 'disabled',
+			'prompt'=> '',
 		])->label(Yii::t('common', 'Пән')) ?>
 	<?php elseif ( $headerField->type == 'teacher' ) : ?>
 		<label class="control-label" for="teacher-institute"><?= Yii::t('common', 'Институт') ?></label>
@@ -58,6 +64,7 @@ use app\models\Institut;
 			'id' => 'teacher-school',
 			'class'=>'form-control select-dynamic',
 			'disabled'=> 'disabled',
+			'prompt'=> '',
 			'data' => [
 				'target' => 'teacher',
 				'target-insert' => 'teacher',
@@ -68,6 +75,7 @@ use app\models\Institut;
 			'id' => 'teacher',
 			'class'=>'form-control int required',
 			'disabled'=> 'disabled',
+			'prompt'=> '',
 		])->label(Yii::t('common', 'Оқытушы')) ?>
 	<?php elseif ( $headerField->type == 'program' ) : ?>
 		<label class="control-label" for="program-institute"><?= Yii::t('common', 'Институт') ?></label>
@@ -86,6 +94,7 @@ use app\models\Institut;
 			'id' => 'program-school',
 			'class'=>'form-control select-dynamic',
 			'disabled'=> 'disabled',
+			'prompt'=> '',
 			'data' => [
 				'target' => 'program',
 				'target-insert' => 'program',
@@ -96,6 +105,7 @@ use app\models\Institut;
 			'id' => 'program',
 			'class'=>'form-control int required',
 			'disabled'=> 'disabled',
+			'prompt'=> '',
 		])->label(Yii::t('common', 'Білім беру бағдарламасы')) ?>
 		
 	<?php else : ?>

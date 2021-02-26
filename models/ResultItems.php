@@ -35,6 +35,16 @@ class ResultItems extends \yii\db\ActiveRecord
         ];
     }
 
+    public function getQuestion()
+    {
+        return $this->hasOne(Question::classname(), ['id' => 'question_id']);
+    }
+
+    public function getOptionItem()
+    {
+        return $this->hasOne(OptionItems::classname(), ['id' => 'answer_id']);
+    }
+
     /**
      * {@inheritdoc}
      */
