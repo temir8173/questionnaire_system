@@ -96,11 +96,19 @@ $sheet->mergeCells('A'.$row.':N'.$row);
 $sheet->getRowDimension($row)->setRowHeight(50);
 $row++;
 /* Результаты ответов на вопросы ( с указанием доли ответивших по вариантам ответов ) */
-foreach ($countedResults as $k => $countedResult) {
+$k = 0;
+foreach ($countedResults as $countedResult) {
+	$k++;
 	if ( count($countedResults) > 1 ) {
 		$sheet->mergeCells('A'.$row.':N'.$row);
-		$sheet->setCellValue('A'.$row, (Yii::$app->language == 'kk') ? $k.') '.$countedResult['q_category']->name_kaz : $k.') '.$countedResult['q_category']->name_rus);
-		$sheet->getRowDimension($row)->setRowHeight(30);
+		if ( $countedResult['q_category'] === null ) {
+			$categoryName = (Yii::$app->language == 'kk') ? $k.') Жалпы сұрақтар' : $k.') Общие вопросы';
+		} else {
+			$categoryName = (Yii::$app->language == 'kk') ? $k.') '.$countedResult['q_category']->name_kaz : $k.') '.$countedResult['q_category']->name_rus;
+		}
+		$sheet->setCellValue('A'.$row, $categoryName);
+		$sheet->getStyle('A'.$row)->getFont()->setSize(16)->setBold(true);
+		$sheet->getRowDimension($row)->setRowHeight(60);
 		$row++;
 	}
 	$j = 0;

@@ -68,46 +68,49 @@ class ResultsController extends Controller
     {
         $countedResults = [];
         $headerResults = [];
+        $results = [];
         $i = 0;
 
         $resultFilters = Yii::$app->request->post('Result');
         $languages = ( !empty($resultFilters['language']) ) ? [$resultFilters['language']] : ['kk', 'ru'];
         $anketa = Anketa::findOne($resultFilters['anketa_id']);
 
-        foreach ($resultFilters['header'] as $k => $fieldHeader) {
-            if ( !empty($fieldHeader['fields']) ) {
-                if ( $fieldHeader['type'] == 'custom' ) {
-                    $where = [ 'h.answer_custom' => $fieldHeader['fields'], 'h.header_question_id' => [$k] ];
-                } else {
-                    $where = [ 'h.answer_id' => $fieldHeader['fields'], 'h.header_question_id' => [$k] ];
+        if ( !empty($resultFilters['header']) ) {
+            foreach ($resultFilters['header'] as $k => $fieldHeader) {
+                if ( !empty($fieldHeader['fields']) ) {
+                    if ( $fieldHeader['type'] == 'custom' ) {
+                        $where = [ 'h.answer_custom' => $fieldHeader['fields'], 'h.header_question_id' => [$k] ];
+                    } else {
+                        $where = [ 'h.answer_id' => $fieldHeader['fields'], 'h.header_question_id' => [$k] ];
+                    }
+                    $i++;
                 }
-                $i++;
             }
-        }
-        
-        if ( $i > 1 )
-            $where = [ 'h.id' => 0, 'h.header_question_id' => 0 ];
+            
+            if ( $i > 1 )
+                $where = [ 'h.id' => 0, 'h.header_question_id' => 0 ];
 
-        if ($i !== 0) {
-            $results = Results::find()
-            ->joinWith('headerResults h')
-            ->where(['anketa_id' => $anketa->id])
-            ->andWhere($where)
-            ->andWhere(['language' => $languages ])
-            ->with('resultsItems.question.category', 'resultsItems.optionItem', 'resultsItems.question.options.optionitems')
-            ->all();
-            if ( !empty($where['h.answer_custom']) ) {
-                $headerResults = HeaderResults::find()->where([ 'answer_custom' => $where['h.answer_custom'], 'header_question_id' => $where['h.header_question_id'] ])->all();
-            } elseif ( !empty($where['h.answer_id']) ) {
-                $headerResults = HeaderResults::find()->where([ 'answer_id' => $where['h.answer_id'], 'header_question_id' => $where['h.header_question_id'] ])->all();
+            if ($i !== 0) {
+                $results = Results::find()
+                ->joinWith('headerResults h')
+                ->where(['anketa_id' => $anketa->id])
+                ->andWhere($where)
+                ->andWhere(['language' => $languages ])
+                ->with('resultsItems.question.category', 'resultsItems.optionItem', 'resultsItems.question.options.optionitems')
+                ->all();
+                if ( !empty($where['h.answer_custom']) ) {
+                    $headerResults = HeaderResults::find()->where([ 'answer_custom' => $where['h.answer_custom'], 'header_question_id' => $where['h.header_question_id'] ])->all();
+                } elseif ( !empty($where['h.answer_id']) ) {
+                    $headerResults = HeaderResults::find()->where([ 'answer_id' => $where['h.answer_id'], 'header_question_id' => $where['h.header_question_id'] ])->all();
+                }
+            } else {
+                $results = Results::find()
+                ->joinWith('headerResults h')
+                ->where(['anketa_id' => $anketa->id])
+                ->andWhere(['language' => $languages ])
+                ->with('resultsItems.question.category', 'resultsItems.optionItem', 'resultsItems.question.options.optionitems')
+                ->all();
             }
-        } else {
-            $results = Results::find()
-            ->joinWith('headerResults h')
-            ->where(['anketa_id' => $anketa->id])
-            ->andWhere(['language' => $languages ])
-            ->with('resultsItems.question.category', 'resultsItems.optionItem', 'resultsItems.question.options.optionitems')
-            ->all();
         }
 
 
@@ -153,7 +156,7 @@ class ResultsController extends Controller
 
         if (count($results) == 0) {
             Yii::$app->session->setFlash('error', Yii::t('common', 'Нәтижелер жоқ'));
-            return $this->redirect(['/results/index']);
+            return $this->redirect(['results/index']);
         } else {
             return $this->renderPartial('export', [ 
                 'countedResults' => $countedResults,

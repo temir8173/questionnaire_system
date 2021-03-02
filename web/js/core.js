@@ -90,8 +90,10 @@ $('document').ready(function(){
 		var id = $(this).parents( ".chosen-check" ).find('.custom-answer').attr('is_own');
 		if ( $(this).parents( ".chosen-check" ).find('.custom-answer').is(':checked') ){
 			$('input[parent_id='+id+']').show(200);
+			$('textarea[parent_id='+id+']').show(200);
 		} else {
 			$('input[parent_id='+id+']').hide(200);
+			$('textarea[parent_id='+id+']').hide(200);
 		}
 	});
 
@@ -99,8 +101,10 @@ $('document').ready(function(){
 		var id = $(this).attr('is_own');
 		if ( $(this).is(':checked') ){
 			$('input[parent_id='+id+']').show(200);
+			$('textarea[parent_id='+id+']').show(200);
 		} else {
 			$('input[parent_id='+id+']').hide(200);
+			$('textarea[parent_id='+id+']').hide(200);
 		}
 	});
 	

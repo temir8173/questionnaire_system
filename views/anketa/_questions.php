@@ -31,11 +31,11 @@ foreach ($questions as $category) : ?>
                         'id' => $question->id.'-'.$index.'-'.$option['id'], 
                         'class' => ($option['type'] == 'own') ? 'custom-answer' : '',
                         'uncheck' => null, 
-                        'is_own' => ($option['type'] == 'own') ? $option['id'] : 'no' 
+                        'is_own' => ($option['type'] == 'own') ? $question->id.'-'.$option['id'] : 'no' 
                     ]);
                 }
                 if ($option['type'] == 'own') {
-                    echo $form->field($resultItems[$index], "[$index]answer_custom")->textInput(['parent_id' => $option['id'], 'style' => 'display: none;'])->label(false);
+                    echo $form->field($resultItems[$index], "[$index]answer_custom")->textInput(['parent_id' => $question->id.'-'.$option['id'], 'style' => 'display: none;'])->label(false);
                 }
             }
         } else {
@@ -47,11 +47,11 @@ foreach ($questions as $category) : ?>
                         'id' => $question->id.'-'.$index.'-'.$option['id'], 
                         'class' => ($option['type'] == 'own') ? 'custom-answer' : '',
                         'uncheck' => null, 
-                        'is_own' => ($option['type'] == 'own') ? $option['id'] : 'no' 
+                        'is_own' => ($option['type'] == 'own') ? $question->id.'-'.$option['id'] : 'no' 
                     ]);
                 }
                 if ($option['type'] == 'own') {
-                    echo $form->field($resultItems[$index], "[$index]answer_custom")->textInput(['parent_id' => $option['id'], 'style' => 'display: none;'])->label(false);
+                    echo $form->field($resultItems[$index], "[$index]answer_custom")->textInput(['parent_id' => $question->id.'-'.$option['id'], 'style' => 'display: none;'])->label(false);
                 } elseif ($option['type'] == 'percentage') {
                     echo $form->field($resultItems[$index], "[$index]answer_id")->hiddenInput([ 'value' => (-$option['id']) ])->label(false);
                     echo '<div class="slidecontainer">';

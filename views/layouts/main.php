@@ -10,6 +10,7 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 use app\widgets\MultiLang\MultiLang;
+use app\widgets\TopMenu\TopMenu;
 
 AppAsset::register($this);
 ?>
@@ -28,42 +29,10 @@ AppAsset::register($this);
 <?php $this->beginBody() ?>
 
 <div class="wrap">
-    <?php
-    NavBar::begin([
-        'brandLabel' => Yii::$app->name,
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
-        ],
-    ]);
-    echo MultiLang::widget(['cssClass'=>'pull-right language']);
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => [
-            ['label' => Yii::t('common', 'Басты'), 'url' => ['/']],
-            ['label' => 'Админ панель', 'url' => ['/admin']],
-            Yii::$app->user->isGuest ? (
-                ['label' => 'Войти', 'url' => ['/site/login']]
-            ) : (
-                '<li>'
-                . Html::beginForm(['/site/logout'], 'post')
-                . Html::submitButton(
-                    'Выйти (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-link logout']
-                )
-                . Html::endForm()
-                . '</li>'
-            )
-        ],
-    ]); 
-
-    NavBar::end();
-    ?>
-
-
+    <?= TopMenu::widget(); ?>
+    
     <div class="container">
         
-    <?php //echo $this->render('language'); ?>
         <?= Breadcrumbs::widget([
             'homeLink' => [
                 'label' => 'Главная ',
