@@ -113,6 +113,7 @@ class AnketaController extends Controller
             $return = [
                 'error' => 1,
                 'message' => 'Ошибка формата данных',
+                'redirect' => '/',
             ];
 
             if ( $result->load(Yii::$app->request->post()) ) {
