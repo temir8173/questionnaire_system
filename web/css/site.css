@@ -89,7 +89,7 @@ div.chosen-check.error p {color: rgba(204,0,0,0.7) !important;}
 }
 
 .wrap > .container {
-    padding: 70px 15px 20px;
+    padding: 15px 15px 20px;
 }
 
 .footer {
@@ -875,7 +875,7 @@ button:focus {
 }
 
 .questionary__inner{
-    margin: 70px 0;
+    margin: 45px 0;
 }
 
 .questionary__title{

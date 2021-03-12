@@ -8,6 +8,7 @@ use app\models\SchoolSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 use app\models\Institut;
 
 /**
@@ -27,6 +28,17 @@ class SchoolController extends Controller
                     'delete' => ['POST'],
                 ],
             ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        //'controllers' => ['default'],
+                        'actions' => [],
+                        'roles' => ['@'],
+                    ],
+                ],
+            ]
         ];
     }
 

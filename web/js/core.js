@@ -57,9 +57,11 @@ $('document').ready(function(){
 					setNotice('Системная ошибка', 'warning');
 				}
 			})
+		} else {
+			setNotice( (window.my_data.language == 'kk') ? 'Толтырылмаған өрістер бар!' : 'Не все поля заполнены!', 'warning');
 		}
 	});
-
+	
 	$('.select-dynamic').change(function(){
 
 		var id = $(this).val(),

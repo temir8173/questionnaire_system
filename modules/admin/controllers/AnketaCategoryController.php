@@ -8,6 +8,7 @@ use app\models\AnketaCategorySearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * AnketaCategoryController implements the CRUD actions for AnketaCategory model.
@@ -26,6 +27,17 @@ class AnketaCategoryController extends Controller
                     'delete' => ['POST'],
                 ],
             ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        //'controllers' => ['default'],
+                        'actions' => [],
+                        'roles' => ['@'],
+                    ],
+                ],
+            ]
         ];
     }
 

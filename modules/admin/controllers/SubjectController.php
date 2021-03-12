@@ -9,6 +9,7 @@ use app\models\SubjectSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * SubjectController implements the CRUD actions for Subject model.
@@ -27,6 +28,17 @@ class SubjectController extends Controller
                     'delete' => ['POST'],
                 ],
             ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        //'controllers' => ['default'],
+                        'actions' => [],
+                        'roles' => ['@'],
+                    ],
+                ],
+            ]
         ];
     }
 

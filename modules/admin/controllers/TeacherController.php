@@ -9,6 +9,7 @@ use app\models\TeacherSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * TeacherController implements the CRUD actions for Teacher model.
@@ -27,6 +28,17 @@ class TeacherController extends Controller
                     'delete' => ['POST'],
                 ],
             ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        //'controllers' => ['default'],
+                        'actions' => [],
+                        'roles' => ['@'],
+                    ],
+                ],
+            ]
         ];
     }
 

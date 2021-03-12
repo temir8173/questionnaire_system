@@ -24,6 +24,13 @@ AppAsset::register($this);
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
+    <?php 
+        $variables = array (
+            'language' => Yii::$app->language,
+            // Тут обычно какие-то другие переменные
+        );
+        echo '<script type="text/javascript">window.my_data = ' . json_encode($variables) . ';</script>';
+    ?>
 </head>
 <body>
 <?php $this->beginBody() ?>

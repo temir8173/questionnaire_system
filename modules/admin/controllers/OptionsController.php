@@ -9,6 +9,7 @@ use app\models\OptionsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * OptionsController implements the CRUD actions for Options model.
@@ -27,6 +28,17 @@ class OptionsController extends Controller
                     'delete' => ['POST'],
                 ],
             ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        //'controllers' => ['default'],
+                        'actions' => [],
+                        'roles' => ['@'],
+                    ],
+                ],
+            ]
         ];
     }
 
