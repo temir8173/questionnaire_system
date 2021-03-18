@@ -13,13 +13,13 @@ use Yii;
         <li class="item-lang">
             <?= Html::a('Қазақша', array_merge(
                 \Yii::$app->request->get(),
-                [\Yii::$app->module->controller->route, 'language' => 'kk']
+                [\Yii::$app->controller->route, 'language' => 'kk']
             )); ?>
         </li>
         <li class="item-lang">
             <?= Html::a('Русский', array_merge(
                 \Yii::$app->request->get(),
-                [\Yii::$app->module->controller->route, 'language' => 'ru']
+                [\Yii::$app->controller->route, 'language' => 'ru']
             )); ?>
         </li>
     </ul>
