@@ -58,7 +58,7 @@ AppAsset::register($this);
     NavBar::end();
     ?>
 
-    <div class="container">
+    <div class="container" style="padding-bottom: 50px;">
         
         <?= Alert::widget() ?>
     </div>

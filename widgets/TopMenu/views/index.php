@@ -26,13 +26,13 @@ use Yii;
                         <div class="lang__item">
                             <?= Html::a('<img src="/img/kazakhstan.png" alt="">', array_merge(
                                 \Yii::$app->request->get(),
-                                [\Yii::$app->module->controller->route, 'language' => 'kk']
+                                ['language' => 'kk']
                             )); ?>
                         </div>
                         <div class="lang__item">
                             <?= Html::a('<img src="/img/russia.png" alt="">', array_merge(
                                 \Yii::$app->request->get(),
-                                [\Yii::$app->module->controller->route, 'language' => 'ru']
+                                ['language' => 'ru']
                             )); ?>
                         </div>
                     </div>  

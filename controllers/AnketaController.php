@@ -88,6 +88,9 @@ class AnketaController extends Controller
     {
 
         $anketa = Anketa::findOne($id);
+        if ( $anketa === null ) {
+            throw new \yii\web\HttpException(404,'Бет табылған жоқ');
+        }
         /* Вопросы о респонденте (в шапке) */
         $headerFields = HeaderFields::find()->where(['anketa_id' => $anketa->id])->all();
         /* Непосредственно вопросы анкеты */
