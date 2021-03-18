@@ -70,8 +70,7 @@ class AnketaController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-            'categories' => $categories,
-            'headerFileds' => $headerFileds
+            'categories' => $categories
         ]);
     }
 

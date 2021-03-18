@@ -52,8 +52,7 @@ class OptionsController extends Controller
         $dataProvider = $searchModel->search([
             $searchModel->formName()=>[
                 'anketa_id'=>$anketa_id,
-                'name_rus' => Yii::$app->request->queryParams[$searchModel->formName()]['name_rus'],
-                'name_kaz' => Yii::$app->request->queryParams[$searchModel->formName()]['name_kaz'],
+                'name' => Yii::$app->request->queryParams[$searchModel->formName()]['name'],
             ],
             'sort' => Yii::$app->request->queryParams['sort'],
         ]);
