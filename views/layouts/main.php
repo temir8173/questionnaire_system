@@ -54,7 +54,7 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; Homework <?= date('Y') ?></p>
+        <p class="pull-left">&copy; Saualnama.wkau <?= date('Y') ?></p>
 
         
     </div>
