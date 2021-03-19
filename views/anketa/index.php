@@ -2,6 +2,9 @@
 
 use yii\helpers\Html;
 
+$this->title = (Yii::$app->language == 'kk') ? $category->name_kaz : $category->name_rus;
+$this->params['breadcrumbs'][] = $this->title;
+
 ?>
 
 <div class="container">

@@ -4,6 +4,10 @@ use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
 
+$this->title = Yii::t('common', 'Сауалнама');
+$this->params['breadcrumbs'][] = ['label' => ( Yii::$app->language == 'kk' ) ? $anketa->category->name_kaz : $anketa->category->name_rus , 'url' => ['/anketa/index', 'category_id' => $anketa->category->id]];
+$this->params['breadcrumbs'][] = $this->title;
+
 ?>
 
 <div class="container">

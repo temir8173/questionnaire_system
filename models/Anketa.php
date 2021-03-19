@@ -38,6 +38,11 @@ class Anketa extends \yii\db\ActiveRecord
         return $this->hasMany(Question::className(), ['anketa_id' => 'id']);
     }
 
+    public function getCategory()
+    {
+        return $this->hasOne(AnketaCategory::className(), ['id' => 'category_id']);
+    }
+
     /**
      * {@inheritdoc}
      */
