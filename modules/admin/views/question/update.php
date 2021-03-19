@@ -20,6 +20,7 @@ $this->params['breadcrumbs'][] = 'Обновить';
         'model' => $model,
         'options' => $options,
         'qcategories' => $qcategories,
+        'anketa_id' => $model->anketa_id
     ]) ?>
 
 </div>

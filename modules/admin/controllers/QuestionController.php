@@ -54,11 +54,11 @@ class QuestionController extends Controller
         $dataProvider = $searchModel->search([
             $searchModel->formName()=>[
                 'anketa_id'=>$anketa_id, 
-                'name_rus' => Yii::$app->request->queryParams[$searchModel->formName()]['name_rus'],
-                'name_kaz' => Yii::$app->request->queryParams[$searchModel->formName()]['name_kaz'],
-                'q_category_id' => Yii::$app->request->queryParams[$searchModel->formName()]['q_category_id'],
+                'name_rus' => (isset(Yii::$app->request->queryParams[$searchModel->formName()]['name_rus'])) ? Yii::$app->request->queryParams[$searchModel->formName()]['name_rus'] : '',
+                'name_kaz' => (isset(Yii::$app->request->queryParams[$searchModel->formName()]['name_kaz'])) ? Yii::$app->request->queryParams[$searchModel->formName()]['name_kaz'] : '',
+                'q_category_id' => (isset(Yii::$app->request->queryParams[$searchModel->formName()]['q_category_id'])) ? Yii::$app->request->queryParams[$searchModel->formName()]['q_category_id'] : '',
             ],
-            'sort' => Yii::$app->request->queryParams['sort']
+            'sort' => ( isset(Yii::$app->request->queryParams['sort']) ) ? Yii::$app->request->queryParams['sort'] : ''
         ]);
         $qcategories = [];
         $qcategories = QCategory::find()->where(['anketa_id' => $anketa_id])->select(['name_rus', 'id'])->indexBy('id')->column();

@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'institute_id',
                 'format' => 'raw',
                 'value' => function($data){
-                    return $data->institute->name_rus;
+                    return (isset($data->institute)) ? $data->institute->name_rus : '';
                 },
                 'headerOptions' => ['style' => 'width: 40%'],
                 'filter' => $institutes,

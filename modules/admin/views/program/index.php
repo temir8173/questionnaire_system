@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'school_id',
                 'format' => 'raw',
                 'value' => function($data){
-                    return $data->school->name_rus;
+                    return (isset($data->school)) ? $data->school->name_rus : '';
                 },
                 'headerOptions' => ['style' => 'width: 25%'],
                 'filter' => $schools,

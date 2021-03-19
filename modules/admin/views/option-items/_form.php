@@ -14,7 +14,10 @@ use yii\widgets\ActiveForm;
 
     if (isset($action)) 
         $params = ['action' => [$action]];
-    else $params = [];
+    else {
+        $params = [];
+        $action= '';
+    }
 
     ?>
 
@@ -25,7 +28,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'name_rus')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'type')->dropdownList(
-        [ 'own' => 'Свой вариант респондента', 'percentage' => 'Процентное значение'], ['prompt'=>'Выберите значение']
+        [ 'own' => 'Свой вариант респондента', 'percentage' => 'Процентное значение'], ['prompt'=>'Стандартный']
     ) ?>
 
     <?= $form->field($model, 'option_id')->hiddenInput(['value' => $option_id])->label(false) ?>

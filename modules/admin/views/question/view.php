@@ -7,11 +7,10 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Question */
 
-if ( !$without_breadcrumbs ) {
     $this->title = $model->id;
     $this->params['breadcrumbs'][] = ['label' => 'Вопросы анкеты', 'url' => Url::to(['index', 'anketa_id' => $model->anketa_id])];
     $this->params['breadcrumbs'][] = $this->title;
-}
+
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="question-view">
@@ -39,14 +38,14 @@ if ( !$without_breadcrumbs ) {
                 'attribute'=>'q_category_id',
                 'format' => 'raw',
                 'value' => function($data){
-                    return $data->category->name_rus;
+                    return ($data->category !== null) ? $data->category->name_rus : '';
                 },
             ],
             [
                 'attribute'=>'option_id',
                 'format' => 'raw',
                 'value' => function($data){
-                    return $data->options->name;
+                    return ($data->options !== null) ? $data->options->name : '';
                 },
             ],
         ],
