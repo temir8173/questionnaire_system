@@ -16,6 +16,7 @@ $sheet->setCellValue('A1', (Yii::$app->language == 'kk') ? $anketa->name_kaz : $
 $sheet->mergeCells('O1:S1');
 $sheet->setCellValue('O1', Yii::t('common', 'Жауап бергендер саны: ').count($results));
 
+$languagesString = '';
 foreach ($languages as $k => $language) {
 	if ($k !== 0) $languagesString .= ', ';
 	if ( $language == 'kk' ) {
