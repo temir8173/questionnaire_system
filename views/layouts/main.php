@@ -42,7 +42,7 @@ AppAsset::register($this);
         
         <?= Breadcrumbs::widget([
             'homeLink' => [
-                'label' => 'Главная ',
+                'label' => Yii::t('common', 'Басты'),
                 'url' => Yii::$app->homeUrl,
             ],
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
