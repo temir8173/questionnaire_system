@@ -63,7 +63,7 @@ class Question extends \yii\db\ActiveRecord
     public static function GrouppedQuestions($questions = []) {
         $groupped_questions = [];
         foreach ($questions as $key => $question) {
-            if ( $question->category->id === null ) {
+            if ( !isset($question->category) ) {
                 $groupped_questions[0]['cat_id'] = 0;
                 $groupped_questions[0]['name_kaz'] = 'Жалпы сұрақтар';
                 $groupped_questions[0]['name_rus'] = 'Общие вопросы';
