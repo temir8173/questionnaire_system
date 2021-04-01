@@ -3,7 +3,6 @@ body {
     height: 100%;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap');
 
 /* FF9400 00BFFF */
 body {
@@ -31,6 +30,12 @@ h4 {
 
 * {
     outline: none;
+}
+
+@media only screen AND (max-width: 768px) {
+    h1 {
+        font-size: 24px;
+    }
 }
 
 
