@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]) ?>
 
                 <div class="inline__anteta1-btn input__btn-update">
-                    <?= Html::submitButton('Отправить результаты', ['name' => 'submit', 'class' => 'button__update']) ?>
+                    <?= Html::submitButton(Yii::t('common', 'Нәтижелерді жіберу'), ['name' => 'submit', 'class' => 'button__update']) ?>
                 </div>
 
             <?php ActiveForm::end(); ?>
