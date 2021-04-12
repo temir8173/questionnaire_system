@@ -53,9 +53,9 @@ class HeaderFieldsController extends Controller
         $dataProvider = $searchModel->search([
             $searchModel->formName()=>[
                 'anketa_id'=>$anketa_id, 
-                'type' => Yii::$app->request->queryParams[$searchModel->formName()]['type'], 
-                'name_rus' => Yii::$app->request->queryParams[$searchModel->formName()]['name_rus'],
-                'name_kaz' => Yii::$app->request->queryParams[$searchModel->formName()]['name_kaz'],
+                'type' => (isset(Yii::$app->request->queryParams[$searchModel->formName()]['type'])) ? Yii::$app->request->queryParams[$searchModel->formName()]['type'] : '',
+                'name_rus' => (isset(Yii::$app->request->queryParams[$searchModel->formName()]['name_rus'])) ? Yii::$app->request->queryParams[$searchModel->formName()]['name_rus'] : '',
+                'name_kaz' => (isset(Yii::$app->request->queryParams[$searchModel->formName()]['name_kaz'])) ? Yii::$app->request->queryParams[$searchModel->formName()]['name_kaz'] : '',
             ],
             'sort' => Yii::$app->request->queryParams['sort']
         ]);
