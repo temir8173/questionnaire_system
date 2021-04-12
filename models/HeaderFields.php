@@ -64,6 +64,7 @@ class HeaderFields extends \yii\db\ActiveRecord
             'subject' => Yii::t('common', 'Пән'),
             'teacher' => Yii::t('common', 'Оқытушы'),
             'program' => Yii::t('common', 'Білім беру бағдарламасы'),
+            'custom' => Yii::t('common', 'Произвольное поле'),
         ];
     }
 
