@@ -57,7 +57,7 @@ class HeaderFieldsController extends Controller
                 'name_rus' => (isset(Yii::$app->request->queryParams[$searchModel->formName()]['name_rus'])) ? Yii::$app->request->queryParams[$searchModel->formName()]['name_rus'] : '',
                 'name_kaz' => (isset(Yii::$app->request->queryParams[$searchModel->formName()]['name_kaz'])) ? Yii::$app->request->queryParams[$searchModel->formName()]['name_kaz'] : '',
             ],
-            'sort' => Yii::$app->request->queryParams['sort']
+            'sort' => ( isset(Yii::$app->request->queryParams['sort']) ) ? Yii::$app->request->queryParams['sort'] : ''
         ]);
 
         return $this->render('index', [
