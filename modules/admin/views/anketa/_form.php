@@ -23,8 +23,8 @@ use yii\widgets\DetailView;
     ) ?>
 
     
-    <?= (Yii::$app->controller->action->id != 'create') ? Html::a('Вопросы о респонденте', Url::to(['header-fields/index', 'anketa_id' => $model->id]), ['class' => 'btn btn-info', 'target'=>'_blank', 'style' => 'margin: 15px 5px 30px 0;']) : '' ?>
-    <?= (Yii::$app->controller->action->id != 'create') ? Html::a('Вопросы', Url::to(['question/index', 'anketa_id' => $model->id]), ['class' => 'btn btn-info', 'target'=>'_blank', 'style' => 'margin: 15px 0 30px 0;']) : '' ?>
+    <?= (Yii::$app->controller->action->id != 'create') ? Html::a('Вопросы о респонденте', Url::to(['header-fields/index', 'anketa_id' => $model->id]), ['class' => 'btn btn-info', 'style' => 'margin: 15px 5px 30px 0;']) : '' ?>
+    <?= (Yii::$app->controller->action->id != 'create') ? Html::a('Вопросы', Url::to(['question/index', 'anketa_id' => $model->id]), ['class' => 'btn btn-info', 'style' => 'margin: 15px 0 30px 0;']) : '' ?>
 
 
     <?php if(0) : ?>
