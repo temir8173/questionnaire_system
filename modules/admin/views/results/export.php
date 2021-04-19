@@ -86,7 +86,7 @@ if ( count($headerResults) > 0 ) {
 					$sheet->setCellValue('E'.$row, (Yii::$app->language == 'kk') ? StringHelper::mb_ucfirst($headerResult->name->name_kaz) : StringHelper::mb_ucfirst($headerResult->name->name_rus));
 				}
 			} else {
-				$sheet->setCellValue('E'.$row, $headerResult->answer_custom);
+				$sheet->setCellValue('E'.$row, $headerResult->answer_custom.' ');
 			}
 			$row++;
 		}

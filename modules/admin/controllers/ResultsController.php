@@ -78,7 +78,7 @@ class ResultsController extends Controller
         if ( !empty($resultFilters['header']) ) {
             foreach ($resultFilters['header'] as $k => $fieldHeader) {
                 if ( !empty($fieldHeader['fields']) ) {
-                    if ( $fieldHeader['type'] == 'custom' ) {
+                    if ( $fieldHeader['type'] == 'custom' || $fieldHeader['type'] == 'gender' || $fieldHeader['type'] == 'course' ) {
                         $where = [ 'h.answer_custom' => $fieldHeader['fields'], 'h.header_question_id' => [$k] ];
                     } else {
                         $where = [ 'h.answer_id' => $fieldHeader['fields'], 'h.header_question_id' => [$k] ];
@@ -113,6 +113,7 @@ class ResultsController extends Controller
             }
         }
 
+        //echo '<pre>'; var_dump($where);echo '</pre>'; die;
 
         /* Группируем результаты по вопросам и вариантам ответов */
         foreach ($results as $k => $result) {
