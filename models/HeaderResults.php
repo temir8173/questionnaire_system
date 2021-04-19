@@ -43,6 +43,12 @@ class HeaderResults extends \yii\db\ActiveRecord
     public function getName()
     {
         switch ($this->question->type) {
+            case 'institute':
+                return $this->hasOne(Institut::className(), ['id' => 'answer_id']);
+                break;
+            case 'school':
+                return $this->hasOne(School::className(), ['id' => 'answer_id']);
+                break;
             case 'program':
                 return $this->hasOne(Program::className(), ['id' => 'answer_id']);
                 break;

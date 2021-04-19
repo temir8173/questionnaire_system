@@ -43,7 +43,7 @@ class LoginForm extends Model
         return [
             'username' => Yii::t('common', 'Атыңыз'),
             'password' => Yii::t('common', 'Құпия сөз'),
-            'rememberMe' => 'Запомни меня',
+            'rememberMe' => Yii::t('common', 'Запомни меня'),
         ];
     }
 

@@ -61,6 +61,8 @@ class HeaderFields extends \yii\db\ActiveRecord
 
     public static function getTypes() {
         return [
+            'institute' => Yii::t('common', 'Институт'),
+            'school' => Yii::t('common', 'Жоғары мектеп'),
             'subject' => Yii::t('common', 'Пән'),
             'teacher' => Yii::t('common', 'Оқытушы'),
             'program' => Yii::t('common', 'Білім беру бағдарламасы'),

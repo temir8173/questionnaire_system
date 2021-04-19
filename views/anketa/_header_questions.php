@@ -17,7 +17,35 @@ use app\models\Institut;
     <?= $form->field($headerResults[$index], "[$index]header_question_id")->hiddenInput(['value' => $headerField->id])->label(false) ?>
     
 
-    <?php if ( $headerField->type == 'subject' ) : ?>
+    <?php if ( $headerField->type == 'institute' ) : ?>
+		<div class="question-box">
+			<?= $form->field($headerResults[$index], "[$index]answer_id")->dropDownList(Institut::find()->select([(Yii::$app->language == 'kk') ? 'name_kaz' : 'name_rus', 'id'])->indexBy('id')->column(), [
+				'id' => 'institute',
+				'class'=>'form-control int required',
+				'prompt'=> '',
+			])->label(Yii::t('common', 'Институт')) ?>
+		</div>
+    <?php elseif ( $headerField->type == 'school' ) : ?>
+		<div class="question-box">
+			<label class="control-label" for="school-institute"><?= Yii::t('common', 'Институт') ?></label>
+	    	<?= Html::dropDownList('Header[institute]','', Institut::find()->select([(Yii::$app->language == 'kk') ? 'name_kaz' : 'name_rus', 'id'])->indexBy('id')->column(),[
+				'id' => 'school-institute',
+				'class'=>'form-control select-dynamic',
+				'prompt'=> Yii::t('common', '-- Таңдаңыз --'),
+				'data' => [
+					'target' => 'school',
+					'target-insert' => 'school-school',
+					'ajaxurl' => Url::toRoute('ajax/select')
+				],
+			]) ?>
+			<?= $form->field($headerResults[$index], "[$index]answer_id")->dropDownList([], [
+				'id' => 'school-school',
+				'class'=>'form-control int required',
+				'disabled'=> 'disabled',
+				'prompt'=> '',
+			])->label(Yii::t('common', 'Пән')) ?>
+		</div>
+    <?php elseif ( $headerField->type == 'subject' ) : ?>
 		<div class="question-box">
 			<label class="control-label" for="subject-institute"><?= Yii::t('common', 'Институт') ?></label>
 	    	<?= Html::dropDownList('Header[institute]','', Institut::find()->select([(Yii::$app->language == 'kk') ? 'name_kaz' : 'name_rus', 'id'])->indexBy('id')->column(),[
