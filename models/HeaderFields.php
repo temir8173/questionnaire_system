@@ -22,6 +22,10 @@ class HeaderFields extends \yii\db\ActiveRecord
         4 => '4',
         5 => '5',
     ];
+    public $gender = [
+        'male' => 'Мужской',
+        'female' => 'Женский'
+    ];
     /**
      * {@inheritdoc}
      */
@@ -57,6 +61,8 @@ class HeaderFields extends \yii\db\ActiveRecord
         foreach ($this->results as $result) { 
             if ( $this->type == 'custom' || $this->type == 'course' ) {
                 $resultsArray[$result->answer_custom] = $result->answer_custom;
+            } elseif ( $this->type == 'gender' ) {
+                $resultsArray[$result->answer_custom] = $this->gender[$result->answer_custom];
             } elseif ( $this->type == 'teacher' ) {
                 $resultsArray[$result->answer_id] = $result->name->name;
             } else {
@@ -74,6 +80,7 @@ class HeaderFields extends \yii\db\ActiveRecord
             'subject' => Yii::t('common', 'Пән'),
             'teacher' => Yii::t('common', 'Оқытушы'),
             'program' => Yii::t('common', 'Білім беру бағдарламасы'),
+            'gender' => Yii::t('common', 'Жынысыңыз'),
             'custom' => Yii::t('common', 'Произвольное поле'),
         ];
     }

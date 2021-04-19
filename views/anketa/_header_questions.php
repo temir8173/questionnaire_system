@@ -33,6 +33,17 @@ use app\models\Institut;
 				'prompt'=> '',
 			])->label(Yii::t('common', 'Курс')) ?>
 		</div>
+    <?php elseif ( $headerField->type == 'gender' ) : ?>
+		<div class="question-box">
+			<?= $form->field($headerResults[$index], "[$index]answer_custom")->dropDownList([
+        'male' => Yii::t('common', 'Ер'), 
+        'female' => Yii::t('common', 'Әйел'),
+    ], [
+				'id' => 'course',
+				'class'=>'form-control int required',
+				'prompt'=> '',
+			])->label(Yii::t('common', 'Жынысыңыз')) ?>
+		</div>
     <?php elseif ( $headerField->type == 'school' ) : ?>
 		<div class="question-box">
 			<label class="control-label" for="school-institute"><?= Yii::t('common', 'Институт') ?></label>
@@ -51,7 +62,7 @@ use app\models\Institut;
 				'class'=>'form-control int required',
 				'disabled'=> 'disabled',
 				'prompt'=> '',
-			])->label(Yii::t('common', 'Пән')) ?>
+			])->label(Yii::t('common', 'Жоғары мектеп')) ?>
 		</div>
     <?php elseif ( $headerField->type == 'subject' ) : ?>
 		<div class="question-box">
