@@ -24,6 +24,11 @@ h2 {
     margin-top: 0;
     margin-bottom: 50px;
 }
+
+h1, .h1 {
+    font-size: 24px;
+}
+
 h4 {
     margin-top: 30px;
 }
@@ -34,12 +39,6 @@ h4 {
 
 .alert {
     margin-top: 50px;
-}
-
-@media only screen AND (max-width: 768px) {
-    h1 {
-        font-size: 24px;
-    }
 }
 
 
@@ -100,6 +99,10 @@ div.chosen-check.error p {color: rgba(204,0,0,0.7) !important;}
 .wrap > .container {
     padding: 15px 15px 20px;
 }
+
+.breadcrumb{
+		margin-bottom: 0px;
+	}
 
 .footer {
     height: 60px;
@@ -884,7 +887,7 @@ button:focus {
 }
 
 .questionary__inner{
-    margin: 45px 0;
+    margin: 20px 0;
 }
 
 .questionary__title{
@@ -984,8 +987,8 @@ button:focus {
     flex-direction: column;
     align-content: center;
     justify-content: flex-end;
-    font-size: 16px;
-	font-weight: 700;
+    font-size: 14px;
+	font-weight: 500;
     /*background: linear-gradient(45deg, #00A8EC, #56CCF2);*/
     color: #333;
 	background-color: #f9f9f9;
@@ -997,6 +1000,7 @@ button:focus {
 	box-shadow: 1px 1px 5px 0px rgb(0 0 0 / 10%);
 	border: 1px solid rgba(0, 0, 0, .125);
 	transition: .4s all;
+	text-transform: uppercase;
 	
 	
 }
@@ -1040,15 +1044,15 @@ button:focus {
 
 .questionary__items::before{
 	position: absolute;
-	content: "";
-	width: 150px;
-	height: 150px;
-	left: 50%;
-	transform: translate(-50%);
-	top: 30px;
-	background-image: url(../img/quiz.svg);
-	background-size: 150px 150px;
-	background-repeat: no-repeat;
+    content: "";
+    width: 130px;
+    height: 130px;
+    left: 50%;
+    transform: translate(-50%);
+    top: 30px;
+    background-image: url(../img/quiz.svg);
+    background-size: 130px 130px;
+    background-repeat: no-repeat;
 	
 }
 
@@ -1246,9 +1250,7 @@ button:focus {
 
 @media (max-width: 768px){
 
-    .questionary__list {
-        margin-top: 20px;
-    }
+    
     .container-bg::before {
         top: 75px;
         width: 65%;
@@ -1257,9 +1259,8 @@ button:focus {
     
     
     .questionary__items{
-        margin-top: 15px;
-        padding: 20px 10px 20px 15px;
-        font-size: 14px;
+            width: 100%;
+			margin-right: 0px;
     }
 
     .number__one::before {
@@ -1293,11 +1294,6 @@ button:focus {
         height: 150px;
     }
 
-    
-
-    
-
-    
 
     .col-all{
         display: flex;
@@ -1318,7 +1314,7 @@ button:focus {
         padding-left: 15px;
     }
     .col-one{
-        margin-right: 0px;
+        margin-left: -15px;
 
     }
     
@@ -1327,7 +1323,7 @@ button:focus {
     }
 
     .questionary__inner {
-        margin: 30px 0;
+        margin: 0px 0;
     }
 
     .questionary__info {
@@ -1336,27 +1332,62 @@ button:focus {
 
     .questionary__title {
         font-size: 26px;
-        margin-bottom: 12px;
+		margin: 20px 0;
     }
 
-    .questionary__list a:hover{
-        transform: scale(1);
-    }
+    
+	
+		h1, .h1 {
+		font-size: 24px;
+	}
+	
+	.header__inner {
+	
+		padding: 0 15px;
+	}
 
 }
 
 @media (max-width: 576px){
-    .questionary__items {
-        width: 100%;
-        height: 100px;
-        margin-top: 15px;
-        padding: 20px;
-        font-size: 14px;
+	
+	.questionary__items {
+		
+		height: 250px;
+		
+	}
+	
+	.title{
+		
+		letter-spacing: 2px;
+	}
+	
+	.questionary__title {
+        font-size: 24px;
+        margin-bottom: 15px;
     }
+	
+	h1 {
+		font-size: 16px;
+	}
+	
+	.questionary__items::before {
+		width: 100px;
+		height: 100px;
 
-    .questionary__inner {
-        margin: 30px 0 20px;
-    }
+		background-size: 100px 100px;
+	}
+	
+	.questionary__items {
+		font-size: 14px;
+		font-weight: 400;
+	}
+	
+	
+	
+	
+    
+
+    
 
     .questionary__items .questionary__items-p {
         margin-left: 35px;
@@ -1394,14 +1425,9 @@ button:focus {
         height: 100px;
     }
 
-    .questionary__inner {
-        margin: 30px 0;
-    }
     
-    .questionary__title {
-        font-size: 22px;
-        margin-bottom: 15px;
-    }
+    
+    
 
     .header__logo-title{
         font-size: 18px;

@@ -19,7 +19,11 @@ use app\models\Institut;
 
     <?php if ( $headerField->type == 'institute' ) : ?>
 		<div class="question-box">
-			<?= $form->field($headerResults[$index], "[$index]answer_id")->dropDownList(Institut::find()->select([(Yii::$app->language == 'kk') ? 'name_kaz' : 'name_rus', 'id'])->indexBy('id')->column(), [
+			<?php
+				$institutes = Institut::find()->select([(Yii::$app->language == 'kk') ? 'name_kaz' : 'name_rus', 'id'])->indexBy('id')->column();
+				unset($institutes[57]);
+			?>
+			<?= $form->field($headerResults[$index], "[$index]answer_id")->dropDownList($institutes, [
 				'id' => 'institute',
 				'class'=>'form-control int required',
 				'prompt'=> '',
