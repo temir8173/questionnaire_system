@@ -15,6 +15,13 @@ use Yii;
  */
 class HeaderFields extends \yii\db\ActiveRecord
 {
+    public $courses = [
+        1 => '1',
+        2 => '2',
+        3 => '3',
+        4 => '4',
+        5 => '5',
+    ];
     /**
      * {@inheritdoc}
      */
@@ -48,7 +55,7 @@ class HeaderFields extends \yii\db\ActiveRecord
     public function getResultsArray()
     {
         foreach ($this->results as $result) { 
-            if ( $this->type == 'custom' ) {
+            if ( $this->type == 'custom' || $this->type == 'course' ) {
                 $resultsArray[$result->answer_custom] = $result->answer_custom;
             } elseif ( $this->type == 'teacher' ) {
                 $resultsArray[$result->answer_id] = $result->name->name;
@@ -63,6 +70,7 @@ class HeaderFields extends \yii\db\ActiveRecord
         return [
             'institute' => Yii::t('common', 'Институт'),
             'school' => Yii::t('common', 'Жоғары мектеп'),
+            'course' => Yii::t('common', 'Курс'),
             'subject' => Yii::t('common', 'Пән'),
             'teacher' => Yii::t('common', 'Оқытушы'),
             'program' => Yii::t('common', 'Білім беру бағдарламасы'),

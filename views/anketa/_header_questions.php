@@ -25,6 +25,14 @@ use app\models\Institut;
 				'prompt'=> '',
 			])->label(Yii::t('common', 'Институт')) ?>
 		</div>
+    <?php elseif ( $headerField->type == 'course' ) : ?>
+		<div class="question-box">
+			<?= $form->field($headerResults[$index], "[$index]answer_custom")->dropDownList($headerField->courses, [
+				'id' => 'course',
+				'class'=>'form-control int required',
+				'prompt'=> '',
+			])->label(Yii::t('common', 'Курс')) ?>
+		</div>
     <?php elseif ( $headerField->type == 'school' ) : ?>
 		<div class="question-box">
 			<label class="control-label" for="school-institute"><?= Yii::t('common', 'Институт') ?></label>
