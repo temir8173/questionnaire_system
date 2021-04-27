@@ -17,7 +17,7 @@ class AnketaSearch extends Anketa
     public function rules()
     {
         return [
-            [['id'], 'integer'],
+            [['id', 'category_id', 'status'], 'integer'],
             [['name_kaz', 'name_rus'], 'safe'],
         ];
     }
@@ -59,6 +59,8 @@ class AnketaSearch extends Anketa
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'category_id' => $this->category_id,
+            'status' => $this->status,
         ]);
 
         $query->andFilterWhere(['like', 'name_kaz', $this->name_kaz])

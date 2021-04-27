@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\StringHelper;
+use app\models\AnketaCategory;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\AnketaSearch */
@@ -28,11 +30,27 @@ $this->params['breadcrumbs'][] = $this->title;
 
             [
                 'attribute' => 'name_rus',
-                'headerOptions' => ['style' => 'width: 45%'],
+                'headerOptions' => ['style' => 'width: 30%'],
             ],
             [
                 'attribute' => 'name_kaz',
-                'headerOptions' => ['style' => 'width: 45%'],
+                'headerOptions' => ['style' => 'width: 30%'],
+            ],
+            [
+                'attribute' => 'category_id',
+                'headerOptions' => ['style' => 'width: 30%'],
+                'value' => function($data){
+                    return ($data->category) ? StringHelper::truncate($data->category->name_rus, 75) : 'Общие';
+                },
+                'filter' => AnketaCategory::find()->select(['name_rus', 'id'])->indexBy('id')->column(),
+            ],
+            [
+                'attribute' => 'status',
+                'headerOptions' => ['style' => 'width: 5%'],
+                'value' => function($data){
+                    return ($data->status == 1) ? 'Да' : 'Нет';
+                },
+                'filter' => [0 => 'Нет', 1 => 'Да'],
             ],
 
             

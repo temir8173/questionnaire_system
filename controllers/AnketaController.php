@@ -75,7 +75,7 @@ class AnketaController extends Controller
     public function actionIndex($category_id)
     {
         $anketas = [];
-        $anketas = Anketa::find()->where(['category_id' => $category_id])->all();
+        $anketas = Anketa::find()->where(['category_id' => $category_id])->andWhere(['status' => 1])->all();
         $category = AnketaCategory::findOne($category_id);
 
         return $this->render('index', [
@@ -87,7 +87,7 @@ class AnketaController extends Controller
     public function actionView($id)
     {
 
-        $anketa = Anketa::findOne($id);
+        $anketa = Anketa::find()->where(['id' => $id])->andWhere(['status' => 1])->one();
         if ( $anketa === null ) {
             throw new \yii\web\HttpException(404,'Бет табылған жоқ');
         }
