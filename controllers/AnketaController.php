@@ -65,7 +65,7 @@ class AnketaController extends Controller
     public function actionCategories()
     {
 
-        $categories = AnketaCategory::find()->select(['name_kaz', 'name_rus', 'id'])->all();
+        $categories = AnketaCategory::find()->with('anketas')->select(['anketa_category.name_kaz', 'anketa_category.name_rus', 'anketa_category.id'])->all();
 
         return $this->render('categories', [
             'categories' => $categories

@@ -43,4 +43,9 @@ class AnketaCategory extends \yii\db\ActiveRecord
             'name_kaz' => 'Қазақша атауы',
         ];
     }
+
+    public function getAnketas()
+    {
+        return $this->hasMany(Anketa::className(), ['category_id' => 'id']);
+    }
 }

@@ -11,7 +11,9 @@ use yii\helpers\Html;
             <h2 class="questionary__title title"><?= Yii::t('common', 'Сауалнамалар') ?></h2>
             <div class="questionary__list">
             	<?php foreach ( $categories as $k => $category ) : ?>
-					<?= Html::a((Yii::$app->language == 'kk') ? $category->name_kaz : $category->name_rus, ['index', 'category_id' => $category->id], ['class' => 'questionary__items']) ?>
+                    <?php if(!empty($category->anketas)) : ?>
+					   <?= Html::a((Yii::$app->language == 'kk') ? $category->name_kaz : $category->name_rus, ['index', 'category_id' => $category->id], ['class' => 'questionary__items']) ?>
+                    <?php endif; ?>
 			    <?php endforeach; ?>
 			</div>
         </div>
